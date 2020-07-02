@@ -1,0 +1,27 @@
+{
+  "name": "war-two-planets",
+  "version": "1.0.0",
+  "description": "A nodejs console app for GeekTrust backend problem",
+  "main": "src/geektrust.js",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "start:dev": "nodemon",
+    "start": "node build/geektrust.js",
+    "tslint": "tslint -p tsconfig.json",
+    "postinstall": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.45",
+    "jest": "^25.5.4",
+    "nodemon": "^1.19.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.15.0",
+    "typescript": "~3.8.3"
+  }
+}
