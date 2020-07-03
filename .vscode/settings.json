@@ -1,3 +1,5 @@
 {
-  "prettier.singleQuote": true
+  "prettier.singleQuote": true,
+  "tslint.configFile": "tslint.json",
+  "javascript.preferences.quoteStyle": "single"
 }

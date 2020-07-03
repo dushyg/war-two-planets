@@ -5,5 +5,9 @@
   "rules": {},
   "rulesDirectory": [],
   "max-line-length": [true, 140],
-  "quotemark": [true, "single"]
+  "quotemark": [true, "single"],
+  "interface-name": false,
+  "linterOptions": {
+    "exclude": ["./build/*"]
+  }
 }
