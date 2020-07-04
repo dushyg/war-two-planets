@@ -2,7 +2,6 @@ import { FORCE_CODES } from '../constants';
 import { Army } from '../models';
 import { ArmyManager } from './armyManager';
 import { Strength } from '../models/strength';
-import { Strength } from './../models/strength';
 
 export class PreDefinedArmyManager implements ArmyManager {
   public getInitializeArmy(name: string): Army {
@@ -44,34 +43,5 @@ export class PreDefinedArmyManager implements ArmyManager {
       name,
     };
     return army;
-  }
-
-  public updateCombatantTacklingPower(
-    combatantCode: string,
-    power: number,
-    army: Army
-  ): Army {
-    const updatedArmy: Army = { ...army };
-
-    const combatantType = updatedArmy.forces.get(combatantCode);
-    if (combatantType) {
-      const updatedCombatantType = { ...combatantType };
-      updatedCombatantType.tacklingPower = power;
-      updatedArmy.forces.set(combatantCode, updatedCombatantType);
-    }
-    return updatedArmy;
-  }
-
-  public updateTacklingPowerForAll(power: number, army: Army): Army {
-    const updatedArmy: Army = { ...army };
-
-    updatedArmy.forces = new Map<string, Strength>(
-      Array.from(updatedArmy.forces, ([code, strength]) => [
-        code,
-        { tacklingPower: power } as Strength,
-      ])
-    );
-
-    return updatedArmy;
   }
 }
