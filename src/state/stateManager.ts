@@ -1,4 +1,4 @@
-import { Battle } from '../models';
+import { Battle, Army } from '../models';
 import { State } from './index';
 
 export class StateManager {

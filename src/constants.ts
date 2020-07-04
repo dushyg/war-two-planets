@@ -1,7 +1,7 @@
-export enum PLANET_NAMES {
-  'FALICORNIA',
-  'LENGABURU',
-}
+export const PLANET_NAMES = {
+  FALICORNIA: 'FALICORNIA',
+  LENGABURU: 'LENGABURU',
+};
 
 export enum FORCE_NAMES {
   'HORSE',

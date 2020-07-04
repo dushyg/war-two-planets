@@ -1,5 +1,5 @@
 export interface Battle {
-  remaining: number;
-  uncountered: number;
-  used: number;
+  remainingFriendliesCount: number;
+  uncounteredEnemiesCount: number;
+  usedFriendliesCount: number;
 }
