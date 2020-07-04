@@ -10,12 +10,12 @@ export enum FORCE_NAMES {
   'SLING GUNS',
 }
 
-export enum FORCE_CODES {
-  'H',
-  'E',
-  'AT',
-  'SG',
-}
+export const FORCE_CODES = {
+  H: 'H',
+  E: 'E',
+  AT: 'AT',
+  SG: 'SG',
+};
 
 export const ATTACK_INPUT_STRING_START_TOKEN = 'FALICORNIA_ATTACK';
 export const ATTACK_INPUT_STRING_FORMAT = `${ATTACK_INPUT_STRING_START_TOKEN} 250H 50E 20AT 15SG`;
@@ -23,7 +23,7 @@ export const ATTACK_INPUT_STRING_FORMAT = `${ATTACK_INPUT_STRING_START_TOKEN} 25
 export const ERRORS = {
   noInputFilePath:
     'Input not passed as process argument. Usage: node geektrust.js ./inputFilePath',
-  noOrEmptyInputString: 'No or empty input string passed',
+  noOrEmptyInputString: `No or empty input string passed. Pass input like ${ATTACK_INPUT_STRING_FORMAT}`,
   invalidInputString: `Input does not confirm to expected contract. Pass input like ${ATTACK_INPUT_STRING_FORMAT}`,
 };
 
