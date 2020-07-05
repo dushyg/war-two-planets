@@ -1,5 +1,5 @@
-import { Strength } from './strength';
+import { Combatant } from './combatant';
 export interface Army {
   name: string;
-  forces: Map<string, Strength>;
+  forces: Map<string, Combatant>;
 }

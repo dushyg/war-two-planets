@@ -1,5 +1,8 @@
 export interface Battle {
-  remainingFriendliesCount: number;
-  uncounteredEnemiesCount: number;
-  usedFriendliesCount: number;
+  availableDefendersCount: number;
+  untackledInvadersCount: number;
+  engagedDefendersCount: number;
+  invaderCombatantCode: string;
+  defenderCombatantCode: string;
+  defenderTacklingPower: number;
 }

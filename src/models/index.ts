@@ -1,3 +1,4 @@
 export { Army } from './army';
 export { Battle } from './battle';
-export { Strength } from './strength';
+export { Combatant } from './combatant';
+export { WarResult } from './warResult';
