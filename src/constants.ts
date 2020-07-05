@@ -15,6 +15,7 @@ export const FORCE_CODES = {
   E: 'E',
   AT: 'AT',
   SG: 'SG',
+  NONE: 'NONE',
 };
 
 export const ATTACK_INPUT_STRING_START_TOKEN = 'FALICORNIA_ATTACK';
