@@ -2,7 +2,8 @@ import { BattleCreator } from './battleCreator';
 import { CombatantMatcher } from './combatantMatcher/combatantMatcher';
 import { Army, Battle, WarResult } from './models';
 import { StateManager } from './state/stateManager';
-import { SubstitutionManager } from './substitutionManager';
+import { SubstitutionManager } from './substitutionManager/substitutionManager';
+import { getRequiredDefendersCount } from './warUtils';
 
 export class War {
   constructor(
@@ -19,16 +20,13 @@ export class War {
 
     // obtain the war result after first round without substitution
     let warResult: WarResult = this.getWarResult(updatedBattles);
-    //
-    // let victor: string = this.getVictor(
-    //   battles,
-    //   invadingArmy.name,
-    //   defendingArmy.name
-    // );
+    console.log(JSON.stringify(warResult.forcesUsed));
 
-    // if (victor === defendingArmy.name) {
-    //   console.log();
-    // }
+    if (warResult.isDefenceSuccessful) {
+      console.log('WINS');
+    } else {
+      console.log('LOSES');
+    }
 
     return warResult;
   }
@@ -75,8 +73,9 @@ export class War {
       untackledInvadersCountAfterBattle: 0,
     };
     // Calculate defendersRequired based on their tackling Power
-    const defendersRequired = Math.ceil(
-      battle.untackledInvadersCount / battle.defenderTacklingPower
+    const defendersRequired = getRequiredDefendersCount(
+      battle.untackledInvadersCount,
+      battle.defenderTacklingPower
     );
     status.freeDefendersAfterBattle =
       battle.availableDefendersCount - defendersRequired;

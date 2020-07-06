@@ -18,10 +18,11 @@ export class BattleCreator {
           {
             availableDefendersCount: defender.numberOfUnits,
             defenderCombatantCode: defender.codeName,
+            defenderDeploymentPosition: defender.deploymentPosition,
             defenderTacklingPower: defender.tacklingPower,
+            engagedDefendersCount: 0,
             invaderCombatantCode: combatantCode,
             untackledInvadersCount: combatant.numberOfUnits,
-            engagedDefendersCount: 0,
           } as Battle,
         ];
       })

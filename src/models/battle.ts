@@ -5,4 +5,5 @@ export interface Battle {
   invaderCombatantCode: string;
   defenderCombatantCode: string;
   defenderTacklingPower: number;
+  defenderDeploymentPosition: number;
 }
