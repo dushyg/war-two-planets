@@ -11,7 +11,9 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "importHelpers": true,
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   },
   "exclude": ["node_modules", "build", "**/*.spec.ts"],
   "include": ["src"]

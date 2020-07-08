@@ -1,6 +1,7 @@
 import { InputGetter } from './inputGetter';
 import { ERRORS } from '../constants';
 
+// @Service(InputGetterService)
 export class ArgsInputGetter implements InputGetter {
   public getInput(): string {
     if (process.argv.length > 2) {

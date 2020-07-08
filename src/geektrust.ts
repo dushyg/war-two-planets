@@ -1,19 +1,29 @@
-import { Army, WarResult } from './models';
-import { StateManager } from './state/stateManager';
-import { War } from './war';
+import { Container } from 'typedi';
 import { ArmyProvider } from './armyProvider/armyProvider';
-import { CombatantMatcher } from './combatantMatcher/combatantMatcher';
+import { WarResult } from './models';
+import {
+  DefenderPredefinedArmyProviderService,
+  InvaderArgsArmyProviderService,
+  initializeTypeDiContainer,
+} from './typediConfig';
+import { War } from './war';
 
 class App {
-  constructor(
-    private stateManager: StateManager,
-    private defenderArmyProvider: ArmyProvider,
-    private invaderArmyProvider: ArmyProvider,
-    private combatantMatcher: CombatantMatcher
-  ) {}
+  private defenderArmyProvider: ArmyProvider;
+  private invaderArmyProvider: ArmyProvider;
+  constructor() {
+    this.defenderArmyProvider = Container.get(
+      DefenderPredefinedArmyProviderService
+    );
+    this.invaderArmyProvider = Container.get(InvaderArgsArmyProviderService);
+  }
+  // constructor(
+  //   private defenderArmyProvider: ArmyProvider,
+  //   private invaderArmyProvider: ArmyProvider
+  // ) {}
   public start(): void {
     try {
-      const war = new War(this.stateManager, this.combatantMatcher);
+      const war = new War();
       const warResult: WarResult = war.fight(
         this.invaderArmyProvider.getArmy(),
         this.defenderArmyProvider.getArmy()
@@ -21,9 +31,11 @@ class App {
 
       // todo ouptut result to console
     } catch (error) {
-      this.stateManager.setError(error);
+      console.error(error);
       throw error;
     }
   }
 }
-// App.start();
+// Initialize Dependency Injection Container
+initializeTypeDiContainer();
+new App().start();

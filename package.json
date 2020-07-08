@@ -14,7 +14,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.8.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "@types/node": "^12.12.45",

@@ -29,6 +29,8 @@ export const ATTACK_INPUT_STRING_FORMAT = `${ATTACK_INPUT_STRING_START_TOKEN} 25
 export const ERRORS = {
   noInputFilePath:
     'Input not passed as process argument. Usage: node geektrust.js ./inputFilePath',
+  INVALID_INPUT_FILE_PATH:
+    'Input file path not found. Please provide a valid file path to read input from.',
   noOrEmptyInputString: `No or empty input string passed. Pass input like ${ATTACK_INPUT_STRING_FORMAT}`,
   invalidInputString: `Input does not confirm to expected contract. Pass input like ${ATTACK_INPUT_STRING_FORMAT}`,
 };

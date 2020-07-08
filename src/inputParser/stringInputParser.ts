@@ -1,3 +1,5 @@
+import { Token } from 'typedi';
+
 export interface StringInputParser {
   /**
    * Parses a string into a map listing enemy attack forces
@@ -7,3 +9,5 @@ export interface StringInputParser {
    */
   parseString(input: string, tokensToParse: string[]): Map<string, number>;
 }
+
+// export const StringInputParserService = new Token<StringInputParser>();

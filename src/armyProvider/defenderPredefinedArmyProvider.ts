@@ -1,10 +1,13 @@
 import { FORCE_CODES, PLANET_NAMES } from '../constants';
 import { Army, Combatant } from '../models';
 import { ArmyProvider } from './armyProvider';
+import { Token, Service } from 'typedi';
 
+// export const DefenderPredefinedArmyProviderService = new Token<ArmyProvider>();
 /**
  * Allows to createa predefined Army object based on given problem statement
  */
+// @Service(DefenderPredefinedArmyProviderService)
 export class DefenderPredefinedArmyProvider implements ArmyProvider {
   /**
    * Creates and returns a predefined Army object based on given problem statement

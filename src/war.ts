@@ -4,17 +4,17 @@ import { Army, Battle, WarResult } from './models';
 import { StateManager } from './state/stateManager';
 import { SubstitutionManager } from './substitutionManager/substitutionManager';
 import { getRequiredDefendersCount } from './warUtils';
+import Container from 'typedi';
 
 export class War {
-  constructor(
-    private stateManager: StateManager,
-    private combatantMatcher: CombatantMatcher
-  ) {}
+  constructor() {}
 
   public fight(invadingArmy: Army, defendingArmy: Army): WarResult {
-    const battles: Map<string, Battle> = new BattleCreator(
-      this.combatantMatcher
-    ).createBattles(invadingArmy, defendingArmy);
+    const battleCreator: BattleCreator = Container.get(BattleCreator);
+    const battles: Map<string, Battle> = battleCreator.createBattles(
+      invadingArmy,
+      defendingArmy
+    );
 
     const updatedBattles: Map<string, Battle> = this.counterInvaders(battles);
 
@@ -38,7 +38,7 @@ export class War {
     //   }
     // });
     const updatedBattles = new Map<string, Battle>(
-      Array.from(battles, this.getUpdatedCombatantBattleKeyValuePair)
+      Array.from(battles, this.getUpdatedCombatantBattleKeyValuePair.bind(this))
     );
 
     return updatedBattles;

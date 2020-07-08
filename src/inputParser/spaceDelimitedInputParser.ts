@@ -1,6 +1,7 @@
 import { StringInputParser } from './stringInputParser';
-import { ERRORS, CONFIG, ATTACK_INPUT_STRING_START_TOKEN } from '../constants';
+import { ERRORS } from '../constants';
 
+// @Service(StringInputParserService)
 export class SpaceDelimitedInputParser implements StringInputParser {
   /**
    * Parses a string into a map listing enemy attack forces.

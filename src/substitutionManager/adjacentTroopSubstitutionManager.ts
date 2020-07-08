@@ -1,8 +1,10 @@
 import { SubstitutionManager } from './substitutionManager';
 import { Army, Battle } from '../models';
-import { FORCE_CODES, SUBSTITUTION_POWER } from '../constants';
+import { SUBSTITUTION_POWER } from '../constants';
 import { getRequiredDefendersCount } from '../warUtils';
+import { Service } from 'typedi';
 
+// @Service(SubstitutionManagerService)
 export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   public getBattlesAfterSubstitutionAttempt(
     battles: Map<string, Battle>
