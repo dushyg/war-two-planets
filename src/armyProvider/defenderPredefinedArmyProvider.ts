@@ -20,7 +20,7 @@ export class DefenderPredefinedArmyProvider implements ArmyProvider {
           FORCE_CODES.H,
           {
             codeName: FORCE_CODES.H,
-            deploymentPosition: 1,
+            deploymentPosition: 0,
             numberOfUnits: 100,
             tacklingPower: 2,
           } as Combatant,
@@ -29,7 +29,7 @@ export class DefenderPredefinedArmyProvider implements ArmyProvider {
           FORCE_CODES.E,
           {
             codeName: FORCE_CODES.E,
-            deploymentPosition: 2,
+            deploymentPosition: 1,
             numberOfUnits: 50,
             tacklingPower: 2,
           } as Combatant,
@@ -38,7 +38,7 @@ export class DefenderPredefinedArmyProvider implements ArmyProvider {
           FORCE_CODES.AT,
           {
             codeName: FORCE_CODES.AT,
-            deploymentPosition: 3,
+            deploymentPosition: 2,
             numberOfUnits: 10,
             tacklingPower: 2,
           } as Combatant,
@@ -47,7 +47,7 @@ export class DefenderPredefinedArmyProvider implements ArmyProvider {
           FORCE_CODES.SG,
           {
             codeName: FORCE_CODES.SG,
-            deploymentPosition: 4,
+            deploymentPosition: 3,
             numberOfUnits: 5,
             tacklingPower: 2,
           } as Combatant,
