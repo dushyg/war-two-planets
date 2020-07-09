@@ -5,6 +5,30 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Current TS File",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${relativeFile}",
+        "C:\\Users\\Administrator\\Desktop\\warInput.txt"
+      ],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    },
+    {
+      "name": "Launch via NPM",
+      "request": "launch",
+      "runtimeArgs": ["run-script", "debug"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "sourceMaps": true,
+      "console": "integratedTerminal",
+      "args": ["C:\\Users\\Administrator\\Desktop\\warInput.txt"]
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Jest single run all tests",
