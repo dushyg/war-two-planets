@@ -20,7 +20,7 @@ export class War {
 
     // obtain the war result after first round without substitution
     let warResult: WarResult = this.getWarResult(updatedBattles);
-    console.log(JSON.stringify(warResult.forcesUsed));
+    console.log(warResult);
 
     if (warResult.isDefenceSuccessful) {
       console.log('WINS');
@@ -93,9 +93,10 @@ export class War {
       status.engagedDefendersAfterBattle =
         battle.engagedDefendersCount + battle.availableDefendersCount;
 
-      // untackledInvadersCountAfterBattle will be double of defenders we were short on
+      // status.freeDefendersAfterBattle has gone -ve
+      // so untackledInvadersCountAfterBattle will have to be multiplied by -1
       status.untackledInvadersCountAfterBattle =
-        -1 * status.freeDefendersAfterBattle * battle.defenderTacklingPower;
+        -1 * status.freeDefendersAfterBattle;
       status.freeDefendersAfterBattle = 0;
     }
 
