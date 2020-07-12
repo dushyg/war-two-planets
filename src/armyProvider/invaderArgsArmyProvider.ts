@@ -55,8 +55,9 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
 
       return army;
     } catch (error) {
-      console.error(`${ERRORS.INVALID_INPUT_FILE_PATH} - ${error}`);
-      process.exit(1);
+      // tslint:disable-next-line: no-console
+      console.error(error);
+      throw error;
     }
   }
 
