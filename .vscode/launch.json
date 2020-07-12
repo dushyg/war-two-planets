@@ -13,7 +13,7 @@
       "type": "node",
       "sourceMaps": true,
       "console": "integratedTerminal",
-      "args": ["C:\\Users\\Administrator\\Desktop\\warInput.txt"]
+      "args": ["${workspaceRoot}\\src\\testInputs\\warInput.txt"]
     },
     {
       "name": "Current TS File",
@@ -21,7 +21,7 @@
       "request": "launch",
       "args": [
         "${relativeFile}",
-        "C:\\Users\\Administrator\\Desktop\\warInput.txt"
+        "${workspaceRoot}\\src\\testInputs\\warInput.txt"
       ],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
