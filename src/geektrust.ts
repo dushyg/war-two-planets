@@ -5,17 +5,21 @@ import {
   DefenderPredefinedArmyProviderService,
   InvaderArgsArmyProviderService,
   initializeTypeDiContainer,
+  OutputWriterService,
 } from './typediConfig';
 import { War } from './war';
+import { OutputWriter } from './outputWriter/outputWriter';
 
 class App {
   private defenderArmyProvider: ArmyProvider;
   private invaderArmyProvider: ArmyProvider;
+  private outputWriter: OutputWriter;
   constructor() {
     this.defenderArmyProvider = Container.get(
       DefenderPredefinedArmyProviderService
     );
     this.invaderArmyProvider = Container.get(InvaderArgsArmyProviderService);
+    this.outputWriter = Container.get(OutputWriterService);
   }
   // constructor(
   //   private defenderArmyProvider: ArmyProvider,
@@ -28,7 +32,7 @@ class App {
         this.invaderArmyProvider.getArmy(),
         this.defenderArmyProvider.getArmy()
       );
-
+      this.outputWriter.write(warResult);
       // todo ouptut result to console
     } catch (error) {
       console.error(error);

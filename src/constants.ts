@@ -38,3 +38,8 @@ export const ERRORS = {
 export const CONFIG = {
   combatantsTypeCount: 4,
 };
+
+export const OUTCOMES = {
+  WINS: 'WINS',
+  LOSES: 'LOSES',
+};

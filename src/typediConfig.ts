@@ -12,6 +12,10 @@ import { InvaderArgsArmyProvider } from './armyProvider/invaderArgsArmyProvider'
 import { NameBasedCombatantMatcher } from './combatantMatcher/nameBasedCombatantMatcher';
 import { AdjacentTroopSubstitutionManager } from './substitutionManager/adjacentTroopSubstitutionManager';
 import { BattleCreator } from './battleCreator';
+import { WarResultStringFormatter } from './warResultFormatter/warResultStringFormatter';
+import { OutputWriter } from './outputWriter/outputWriter';
+import { SpaceDelimitedStringFormatter } from './warResultFormatter/spaceDelimitedStringFormatter';
+import { ConsoleOutputWriter } from './outputWriter/ConsoleOutputWriter';
 
 export const InputGetterService = new Token<InputGetter>();
 export const StringInputParserService = new Token<StringInputParser>();
@@ -19,8 +23,11 @@ export const DefenderPredefinedArmyProviderService = new Token<ArmyProvider>();
 export const InvaderArgsArmyProviderService = new Token<ArmyProvider>();
 export const CombatantMatcherService = new Token<CombatantMatcher>();
 export const SubstitutionManagerService = new Token<SubstitutionManager>();
-
+export const WarResultFormatterService = new Token<WarResultStringFormatter>();
+export const OutputWriterService = new Token<OutputWriter>();
 export function initializeTypeDiContainer() {
+  Container.set(WarResultFormatterService, new SpaceDelimitedStringFormatter());
+  Container.set(OutputWriterService, new ConsoleOutputWriter());
   Container.set(InputGetterService, new ArgsInputGetter());
   Container.set(StringInputParserService, new SpaceDelimitedInputParser());
   Container.set(
