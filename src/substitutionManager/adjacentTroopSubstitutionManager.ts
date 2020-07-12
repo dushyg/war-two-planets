@@ -1,7 +1,7 @@
 import { SubstitutionManager } from './substitutionManager';
 import { Army, Battle } from '../models';
 import { SUBSTITUTION_POWER } from '../constants';
-import { getRequiredDefendersCount } from '../warUtils';
+import { getRequiredDefendersCount, isSubstitutionRequired } from '../warUtils';
 import { Service } from 'typedi';
 
 // @Service(SubstitutionManagerService)
@@ -11,10 +11,21 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   ): Map<string, Battle> {
     const battleArray: Battle[] = Array.from(battles).map((b) => ({ ...b[1] }));
 
-    battleArray.forEach((battle, index, array) => {
-      const currentDefenderPosition = battle.defenderDeploymentPosition;
-      this.checkForSubstitution(currentDefenderPosition, battleArray);
-    });
+    let didSubstitutionHappen;
+    do {
+      didSubstitutionHappen = false;
+      battleArray.forEach((battle, index, array) => {
+        const currentDefenderPosition = battle.defenderDeploymentPosition;
+        const info: {
+          didSubstitutionHappen: boolean;
+          allSubstitutionsComplete: boolean;
+        } = this.checkForSubstitution(currentDefenderPosition, battleArray);
+        if (info.didSubstitutionHappen) {
+          didSubstitutionHappen = true;
+        }
+      });
+    } while (didSubstitutionHappen && isSubstitutionRequired(battleArray));
+
     return new Map<string, Battle>(
       battleArray.map((battle) => [battle.defenderCombatantCode, battle])
     );
@@ -23,18 +34,19 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   public checkForSubstitution(
     currentDefenderPosition: number,
     battleArray: Battle[]
-  ): void {
+  ) {
     let leftCandidateBattle;
     let rightCandidateBattle;
 
     let candidatePosition = -1;
     const currentBattle = battleArray[currentDefenderPosition];
     if (currentBattle?.untackledInvadersCount === 0) {
-      return;
+      return { didSubstitutionHappen: false, allSubstitutionsComplete: false };
     }
     let leftCandidateSubstitutionInfo;
     let rightCandidateSubstitutionInfo;
 
+    // calculating if substitution is possible with left defender
     const leftPosition = currentDefenderPosition - 1;
     if (leftPosition >= 0) {
       leftCandidateBattle = battleArray[leftPosition];
@@ -43,76 +55,91 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
         currentBattle,
         leftCandidateBattle
       );
-    } else {
-      const rightPosition = currentDefenderPosition + 1;
-      if (rightPosition <= battleArray.length - 1) {
-        rightCandidateBattle = battleArray[rightPosition];
-        candidatePosition = rightPosition;
-        rightCandidateSubstitutionInfo = this.getInfoForCandidateSubstitute(
-          battleArray[currentDefenderPosition],
-          rightCandidateBattle
+      // substitute with left defender if all enemies can be tackled with left forces
+      if (
+        leftCandidateSubstitutionInfo.isSubstitutionPossible &&
+        leftCandidateBattle
+      ) {
+        this.substitute(
+          currentBattle,
+          leftCandidateBattle,
+          leftCandidateSubstitutionInfo
         );
+        return { didSubstitutionHappen: true, allSubstitutionsComplete: true };
       }
     }
-    // substitute with left defender if all enemies can be tackled with left forces
-    if (
-      leftCandidateSubstitutionInfo &&
-      leftCandidateSubstitutionInfo.isSubstitutionPossible &&
-      leftCandidateBattle
-    ) {
-      this.substitute(
-        currentBattle,
-        leftCandidateBattle,
-        leftCandidateSubstitutionInfo
+
+    // calculating if substitution is possible with right defender
+    const rightPosition = currentDefenderPosition + 1;
+    if (rightPosition <= battleArray.length - 1) {
+      rightCandidateBattle = battleArray[rightPosition];
+      candidatePosition = rightPosition;
+      rightCandidateSubstitutionInfo = this.getInfoForCandidateSubstitute(
+        battleArray[currentDefenderPosition],
+        rightCandidateBattle
       );
-    } else if (
-      rightCandidateSubstitutionInfo &&
-      rightCandidateSubstitutionInfo.isSubstitutionPossible &&
-      rightCandidateBattle
-    ) {
       // substitute with right defender if all enemies can be tackled with right forces
-      this.substitute(
-        currentBattle,
-        rightCandidateBattle,
-        rightCandidateSubstitutionInfo
-      );
-    } else if (leftCandidateSubstitutionInfo && leftCandidateBattle) {
+      if (
+        rightCandidateSubstitutionInfo.isSubstitutionPossible &&
+        rightCandidateBattle
+      ) {
+        this.substitute(
+          currentBattle,
+          rightCandidateBattle,
+          rightCandidateSubstitutionInfo
+        );
+        return { didSubstitutionHappen: true, allSubstitutionsComplete: true };
+      }
+    }
+
+    if (leftCandidateSubstitutionInfo && leftCandidateBattle) {
       // if left and right both couldnt fully tackle all enemies then bring over whatever forces
       // we can from left if left exists
-      this.substitute(
-        currentBattle,
-        leftCandidateBattle,
-        leftCandidateSubstitutionInfo
-      );
-    } else if (rightCandidateSubstitutionInfo && rightCandidateBattle) {
+      if (leftCandidateBattle.availableDefendersCount > 0) {
+        this.substitute(
+          currentBattle,
+          leftCandidateBattle,
+          leftCandidateSubstitutionInfo
+        );
+        return { didSubstitutionHappen: true, allSubstitutionsComplete: false };
+      }
+    }
+
+    if (rightCandidateSubstitutionInfo && rightCandidateBattle) {
       // if left defender doesnt exist and right couldnt fully tackle all enemies then bring over whatever forces
       // we can from right
-      this.substitute(
-        currentBattle,
-        rightCandidateBattle,
-        rightCandidateSubstitutionInfo
-      );
+      if (rightCandidateBattle.availableDefendersCount > 0) {
+        this.substitute(
+          currentBattle,
+          rightCandidateBattle,
+          rightCandidateSubstitutionInfo
+        );
+        return { didSubstitutionHappen: true, allSubstitutionsComplete: false };
+      }
     }
+    return { didSubstitutionHappen: false, allSubstitutionsComplete: false };
   }
 
   private substitute(
     currentBattle: Battle,
-    leftCandidateBattle: Battle,
-    leftCandidateSubstitutionInfo: {
+    candidateBattle: Battle,
+    candidateSubstitutionInfo: {
       isSubstitutionPossible: boolean;
       substitutingDefendersCount: number;
+      substitutedDefendersCount: number;
       substituingDefenderPosition: number;
     }
   ) {
     currentBattle.untackledInvadersCount =
       currentBattle.untackledInvadersCount -
-      leftCandidateSubstitutionInfo.substitutingDefendersCount;
-    leftCandidateBattle.engagedDefendersCount =
-      leftCandidateBattle.engagedDefendersCount +
-      leftCandidateSubstitutionInfo.substitutingDefendersCount;
-    leftCandidateBattle.availableDefendersCount =
-      leftCandidateBattle.availableDefendersCount -
-      leftCandidateSubstitutionInfo.substitutingDefendersCount;
+      candidateSubstitutionInfo.substitutedDefendersCount *
+        currentBattle.defenderTacklingPower;
+    candidateBattle.engagedDefendersCount =
+      candidateBattle.engagedDefendersCount +
+      candidateSubstitutionInfo.substitutingDefendersCount;
+    candidateBattle.availableDefendersCount =
+      candidateBattle.availableDefendersCount -
+      candidateSubstitutionInfo.substitutingDefendersCount;
   }
 
   private getInfoForCandidateSubstitute(
@@ -122,6 +149,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     const substitutionInfo = {
       isSubstitutionPossible: false,
       substitutingDefendersCount: 0,
+      substitutedDefendersCount: 0,
       substituingDefenderPosition: -1,
     };
 
@@ -136,6 +164,8 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
         info.substitutingDefendersCount;
       substitutionInfo.substituingDefenderPosition =
         candidateBattle.defenderDeploymentPosition;
+      substitutionInfo.substitutedDefendersCount =
+        info.substitutedDefendersCount;
     }
     return substitutionInfo;
   }
@@ -172,6 +202,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     const substitutionInfo = {
       isSubstitutionPossible: false,
       substitutingDefendersCount: 0,
+      substitutedDefendersCount: 0,
     };
     const requiredReplacingDefenders = Math.ceil(
       additionalReplacedDefendersRequired / replacementPower
@@ -179,9 +210,12 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     if (availableDefendersCount >= requiredReplacingDefenders) {
       substitutionInfo.isSubstitutionPossible = true;
       substitutionInfo.substitutingDefendersCount = requiredReplacingDefenders;
+      substitutionInfo.substitutedDefendersCount = additionalReplacedDefendersRequired;
       return substitutionInfo;
     } else {
       substitutionInfo.substitutingDefendersCount = availableDefendersCount;
+      substitutionInfo.substitutedDefendersCount =
+        availableDefendersCount * replacementPower;
       return substitutionInfo;
     }
   }

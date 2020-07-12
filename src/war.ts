@@ -29,8 +29,7 @@ export class War {
       const substitutionManager: SubstitutionManager = Container.get(
         SubstitutionManagerService
       );
-      let substitutionsExhausted = false;
-      while (!substitutionsExhausted) {}
+
       const updatedBattlesAfterSubstitution: Map<
         string,
         Battle
