@@ -5,6 +5,7 @@ import { StateManager } from './state/stateManager';
 import { SubstitutionManager } from './substitutionManager/substitutionManager';
 import { getRequiredDefendersCount } from './warUtils';
 import Container from 'typedi';
+import { SubstitutionManagerService } from './typediConfig';
 
 export class War {
   constructor() {}
@@ -19,13 +20,34 @@ export class War {
     const updatedBattles: Map<string, Battle> = this.counterInvaders(battles);
 
     // obtain the war result after first round without substitution
-    let warResult: WarResult = this.getWarResult(updatedBattles);
-    console.log(warResult);
+    const warResult: WarResult = this.getWarResult(updatedBattles);
+    console.log('After First Defence ', warResult);
 
     if (warResult.isDefenceSuccessful) {
       console.log('WINS');
     } else {
-      console.log('LOSES');
+      const substitutionManager: SubstitutionManager = Container.get(
+        SubstitutionManagerService
+      );
+      let substitutionsExhausted = false;
+      while (!substitutionsExhausted) {}
+      const updatedBattlesAfterSubstitution: Map<
+        string,
+        Battle
+      > = substitutionManager.getBattlesAfterSubstitutionAttempt(
+        updatedBattles
+      );
+
+      const warResultAfterSubstitution: WarResult = this.getWarResult(
+        updatedBattlesAfterSubstitution
+      );
+
+      console.log('After Substitution ', warResultAfterSubstitution);
+      if (warResultAfterSubstitution.isDefenceSuccessful) {
+        console.log('WINS');
+      } else {
+        console.log('LOSES');
+      }
     }
 
     return warResult;
@@ -85,6 +107,7 @@ export class War {
     // it means we have successfully tackled all attackers
     if (status.freeDefendersAfterBattle >= 0) {
       status.untackledInvadersCountAfterBattle = 0;
+
       status.engagedDefendersAfterBattle =
         battle.engagedDefendersCount + defendersRequired;
     } else {
@@ -93,10 +116,10 @@ export class War {
       status.engagedDefendersAfterBattle =
         battle.engagedDefendersCount + battle.availableDefendersCount;
 
-      // status.freeDefendersAfterBattle has gone -ve
-      // so untackledInvadersCountAfterBattle will have to be multiplied by -1
       status.untackledInvadersCountAfterBattle =
-        -1 * status.freeDefendersAfterBattle;
+        battle.untackledInvadersCount -
+        battle.availableDefendersCount * battle.defenderTacklingPower;
+
       status.freeDefendersAfterBattle = 0;
     }
 
