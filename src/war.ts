@@ -1,15 +1,11 @@
-import { BattleCreator } from './battleCreator';
-import { CombatantMatcher } from './combatantMatcher/combatantMatcher';
-import { Army, Battle, WarResult } from './models';
-import { StateManager } from './state/stateManager';
-import { SubstitutionManager } from './substitutionManager/substitutionManager';
-import { getRequiredDefendersCount } from './warUtils';
 import Container from 'typedi';
+import { BattleCreator } from './battleCreator';
+import { Army, Battle, WarResult } from './models';
+import { SubstitutionManager } from './substitutionManager/substitutionManager';
 import { SubstitutionManagerService } from './typediConfig';
+import { getRequiredDefendersCount } from './warUtils';
 
 export class War {
-  constructor() {}
-
   public fight(invadingArmy: Army, defendingArmy: Army): WarResult {
     const battleCreator: BattleCreator = Container.get(BattleCreator);
     const battles: Map<string, Battle> = battleCreator.createBattles(
@@ -39,23 +35,12 @@ export class War {
         updatedBattlesAfterSubstitution
       );
       return warResultAfterSubstitution;
-      //  console.log('After Substitution ', warResultAfterSubstitution);
-      // if (warResultAfterSubstitution.isDefenceSuccessful) {
-      //   console.log('WINS');
-      // } else {
-      //   console.log('LOSES');
-      // }
     } else {
       return warResult;
     }
   }
 
   public counterInvaders(battles: Map<string, Battle>): Map<string, Battle> {
-    // battles.forEach((battle, combatantCode) => {
-    //   // counter invader with available defenders
-    //   if (battle.uncounteredInvadersCount > 0) {
-    //   }
-    // });
     const updatedBattles = new Map<string, Battle>(
       Array.from(battles, this.getUpdatedCombatantBattleKeyValuePair.bind(this))
     );
@@ -121,23 +106,6 @@ export class War {
     }
 
     return status;
-  }
-
-  private getVictor(
-    battles: Map<string, Battle>,
-    invadingArmyName: string,
-    defendingArmyName: string
-  ): string {
-    const combatantCodes = battles.keys();
-
-    const iterator: string[] = Array.from(combatantCodes);
-
-    const areAllAttackersTackled = iterator.some((combatantCode) => {
-      const battle = battles.get(combatantCode);
-      return !battle?.untackledInvadersCount;
-    });
-
-    return areAllAttackersTackled ? defendingArmyName : invadingArmyName;
   }
 
   private getWarResult(battles: Map<string, Battle>): WarResult {
