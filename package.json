@@ -9,7 +9,7 @@
     "start": "node build/geektrust.js",
     "tslint": "tslint -p tsconfig.json",
     "postinstall": "npm run build",
-    "test": "jest",
+    "test": "jest --coverage",
     "debug": "node.exe --nolazy -r ts-node/register --inspect-brk=9299 -- src/geektrust.ts"
   },
   "keywords": [],
