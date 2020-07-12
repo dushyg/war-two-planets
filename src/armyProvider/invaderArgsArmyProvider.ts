@@ -36,7 +36,15 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
   public getArmy(): Army {
     try {
       const filePath: string = this.inputGetter.getInput();
-      const input: string = fs.readFileSync(filePath).toString('utf8');
+      let input: string;
+
+      try {
+        input = fs.readFileSync(filePath).toString('utf8');
+      } catch (error) {
+        console.error(error);
+        throw new Error(ERRORS.INVALID_INPUT_FILE_PATH);
+      }
+
       const enemyForceMap: Map<
         string,
         number
