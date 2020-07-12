@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NameBasedCombatantMatcher getDefender should return default object when no match is found 1`] = `
+Object {
+  "codeName": "NONE",
+  "deploymentPosition": -1,
+  "numberOfUnits": 0,
+  "tacklingPower": 0,
+}
+`;
