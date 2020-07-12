@@ -21,11 +21,9 @@ export class War {
 
     // obtain the war result after first round without substitution
     const warResult: WarResult = this.getWarResult(updatedBattles);
-    console.log('After First Defence ', warResult);
+    // console.log('After First Defence ', warResult);
 
-    if (warResult.isDefenceSuccessful) {
-      console.log('WINS');
-    } else {
+    if (!warResult.isDefenceSuccessful) {
       const substitutionManager: SubstitutionManager = Container.get(
         SubstitutionManagerService
       );
@@ -40,16 +38,16 @@ export class War {
       const warResultAfterSubstitution: WarResult = this.getWarResult(
         updatedBattlesAfterSubstitution
       );
-
-      console.log('After Substitution ', warResultAfterSubstitution);
-      if (warResultAfterSubstitution.isDefenceSuccessful) {
-        console.log('WINS');
-      } else {
-        console.log('LOSES');
-      }
+      return warResultAfterSubstitution;
+      //  console.log('After Substitution ', warResultAfterSubstitution);
+      // if (warResultAfterSubstitution.isDefenceSuccessful) {
+      //   console.log('WINS');
+      // } else {
+      //   console.log('LOSES');
+      // }
+    } else {
+      return warResult;
     }
-
-    return warResult;
   }
 
   public counterInvaders(battles: Map<string, Battle>): Map<string, Battle> {
