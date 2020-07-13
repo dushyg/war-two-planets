@@ -1,7 +1,7 @@
 {
   "name": "war-two-planets",
   "version": "1.0.0",
-  "description": "A nodejs console app for GeekTrust backend problem",
+  "description": "A nodejs console app for GeekTrust backend problem - War",
   "main": "src/geektrust.js",
   "scripts": {
     "build": "rimraf ./build && tsc",
@@ -13,7 +13,7 @@
     "debug": "node.exe --nolazy -r ts-node/register --inspect-brk=9299 -- src/geektrust.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "dushyg",
   "license": "ISC",
   "dependencies": {
     "reflect-metadata": "^0.1.13",
