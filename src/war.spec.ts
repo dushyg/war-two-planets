@@ -76,6 +76,17 @@ describe('War', () => {
     expect(output).toEqual('WINS 29H 50E 3AT 1SG');
   });
 
+  it('should return correct output when input is FALICORNIA_ATTACK 200H 100E 25AT 8SG', () => {
+    process.argv.push('src\\testInputs\\warInput8.txt');
+    const war = new War();
+    const warResult: WarResult = war.fight(
+      invaderArmyProvider.getArmy(),
+      defenderArmyProvider.getArmy()
+    );
+    const output = warResultStringFormatter.format(warResult);
+    expect(output).toEqual('LOSES 100H 50E 10AT 5SG');
+  });
+
   it('should return correct output when input is FALICORNIA_ATTACK 250H 50E 3AT 1SG', () => {
     process.argv.push('src\\testInputs\\warInput5.txt');
     const war = new War();
