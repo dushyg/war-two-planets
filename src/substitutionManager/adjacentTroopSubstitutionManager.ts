@@ -47,7 +47,6 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     let leftCandidateBattle;
     let rightCandidateBattle;
 
-    let candidatePosition = -1;
     const currentBattle = battleArray[currentDefenderPosition];
     if (currentBattle?.untackledInvadersCount === 0) {
       return { didSubstitutionHappen: false, allSubstitutionsComplete: false };
@@ -59,7 +58,6 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     const leftPosition = currentDefenderPosition - 1;
     if (leftPosition >= 0) {
       leftCandidateBattle = battleArray[leftPosition];
-      candidatePosition = leftPosition;
       leftCandidateSubstitutionInfo = this.getSubstitutionInfo(
         currentBattle,
         leftCandidateBattle
@@ -82,7 +80,6 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     const rightPosition = currentDefenderPosition + 1;
     if (rightPosition <= battleArray.length - 1) {
       rightCandidateBattle = battleArray[rightPosition];
-      candidatePosition = rightPosition;
       rightCandidateSubstitutionInfo = this.getSubstitutionInfo(
         battleArray[currentDefenderPosition],
         rightCandidateBattle
