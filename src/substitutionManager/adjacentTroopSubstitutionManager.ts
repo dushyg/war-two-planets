@@ -9,29 +9,38 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   public getBattlesAfterSubstitutionAttempt(
     battles: Map<string, Battle>
   ): Map<string, Battle> {
-    const battleArray: Battle[] = Array.from(battles).map((b) => ({ ...b[1] }));
+    let battleArray: Battle[] = Array.from(battles).map((b) => ({ ...b[1] }));
 
-    let didSubstitutionHappen;
-    do {
-      didSubstitutionHappen = false;
-      battleArray.forEach((battle, index, array) => {
-        const currentDefenderPosition = battle.defenderDeploymentPosition;
-        const info: {
-          didSubstitutionHappen: boolean;
-          allSubstitutionsComplete: boolean;
-        } = this.checkForSubstitution(currentDefenderPosition, battleArray);
-        if (info.didSubstitutionHappen) {
-          didSubstitutionHappen = true;
-        }
-      });
-    } while (didSubstitutionHappen && isSubstitutionRequired(battleArray));
+    battleArray = this.attemptSubstitutionOnAllBattles(battleArray);
 
     return new Map<string, Battle>(
       battleArray.map((battle) => [battle.defenderCombatantCode, battle])
     );
   }
 
-  public checkForSubstitution(
+  private attemptSubstitutionOnAllBattles(battleArray: Battle[]): Battle[] {
+    if (!isSubstitutionRequired(battleArray)) {
+      return battleArray;
+    }
+    let didSubstitutionHappen = false;
+    battleArray.forEach((battle, index, array) => {
+      const currentDefenderPosition = battle.defenderDeploymentPosition;
+      const info: {
+        didSubstitutionHappen: boolean;
+        allSubstitutionsComplete: boolean;
+      } = this.checkForSubstitution(currentDefenderPosition, battleArray);
+      if (info.didSubstitutionHappen) {
+        didSubstitutionHappen = true;
+      }
+    });
+
+    if (!didSubstitutionHappen) {
+      return battleArray;
+    }
+    return this.attemptSubstitutionOnAllBattles(battleArray);
+  }
+
+  private checkForSubstitution(
     currentDefenderPosition: number,
     battleArray: Battle[]
   ) {
