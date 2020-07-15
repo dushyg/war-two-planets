@@ -56,10 +56,10 @@ function setupWarRuleChain() {
     WarRuleTemplateService,
     new PowerRule(
       DEFENDER_TACKLING_POWER,
-      (battleMap) => true,
+      (battles) => true,
       new LikeToLikeRule(
-        (battleMap) => true,
-        new SubstitutionRule((battleMap) => true, null)
+        (battles) => true,
+        new SubstitutionRule((battles) => true, null)
       )
     )
   );

@@ -1,48 +1,34 @@
-import { WarRuleTemplate } from './warRuleTemplate';
 import { Battle } from '../models';
 import { getRequiredDefendersCount } from '../warUtils';
+import { WarRuleTemplate } from './warRuleTemplate';
 
 export class LikeToLikeRule extends WarRuleTemplate {
   constructor(
-    shouldThisRuleExecute: (battleMap: Map<string, Battle>) => boolean,
+    shouldThisRuleExecute: (battles: Battle[]) => boolean,
     nextRule: WarRuleTemplate | null
   ) {
     super(shouldThisRuleExecute, nextRule);
   }
 
-  public updateBattleMapAsPerRule(
-    battleMap: Map<string, Battle>
-  ): Map<string, Battle> {
-    const updatedBattles = new Map<string, Battle>(
-      Array.from(
-        battleMap,
-        this.getUpdatedCombatantBattleKeyValuePair.bind(this)
-      )
-    );
-
-    return updatedBattles;
+  public updateBattleMapAsPerRule(battles: Battle[]): Battle[] {
+    const getUpdatedBattle = this.updateCombatantBattle.bind(this);
+    return battles.map(getUpdatedBattle);
   }
 
-  private getUpdatedCombatantBattleKeyValuePair([combatantCode, battle]: [
-    string,
-    Battle
-  ]): [string, Battle] {
+  private updateCombatantBattle(battle: Battle): Battle {
     const statusAfterBattle: {
       freeDefendersAfterBattle: number;
       engagedDefendersAfterBattle: number;
       untackledInvadersCountAfterBattle: number;
     } = this.getStatusAfterBattle(battle);
 
-    return [
-      combatantCode,
-      {
-        ...battle,
-        availableDefendersCount: statusAfterBattle.freeDefendersAfterBattle,
-        engagedDefendersCount: statusAfterBattle.engagedDefendersAfterBattle,
-        untackledInvadersCount:
-          statusAfterBattle.untackledInvadersCountAfterBattle,
-      } as Battle,
-    ];
+    return {
+      ...battle,
+      availableDefendersCount: statusAfterBattle.freeDefendersAfterBattle,
+      engagedDefendersCount: statusAfterBattle.engagedDefendersAfterBattle,
+      untackledInvadersCount:
+        statusAfterBattle.untackledInvadersCountAfterBattle,
+    } as Battle;
   }
 
   private getStatusAfterBattle(battle: Battle) {

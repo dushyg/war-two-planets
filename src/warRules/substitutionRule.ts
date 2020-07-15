@@ -7,18 +7,14 @@ import { SubstitutionManagerService } from '../typediConfig';
 export class SubstitutionRule extends WarRuleTemplate {
   private substitutionManager: SubstitutionManager;
   constructor(
-    shouldThisRuleExecute: (battleMap: Map<string, Battle>) => boolean,
+    shouldThisRuleExecute: (battles: Battle[]) => boolean,
     nextRule: WarRuleTemplate | null
   ) {
     super(shouldThisRuleExecute, nextRule);
     this.substitutionManager = Container.get(SubstitutionManagerService);
   }
 
-  public updateBattleMapAsPerRule(
-    battleMap: Map<string, Battle>
-  ): Map<string, Battle> {
-    return this.substitutionManager.getBattlesAfterSubstitutionAttempt(
-      battleMap
-    );
+  public updateBattleMapAsPerRule(battles: Battle[]): Battle[] {
+    return this.substitutionManager.getBattlesAfterSubstitutionAttempt(battles);
   }
 }

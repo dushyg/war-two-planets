@@ -1,32 +1,29 @@
-import { WarRule } from './warRule';
 import { Battle } from '../models';
 
 export abstract class WarRuleTemplate {
-  shouldThisRuleExecute: (battleMap: Map<string, Battle>) => boolean;
+  shouldThisRuleExecute: (battles: Battle[]) => boolean;
   nextRule: WarRuleTemplate | null;
 
   constructor(
-    shouldThisRuleExecute: (battleMap: Map<string, Battle>) => boolean,
+    shouldThisRuleExecute: (battles: Battle[]) => boolean,
     nextRule: WarRuleTemplate | null
   ) {
     this.shouldThisRuleExecute = shouldThisRuleExecute;
     this.nextRule = nextRule;
   }
 
-  abstract updateBattleMapAsPerRule(
-    battleMap: Map<string, Battle>
-  ): Map<string, Battle>;
+  abstract updateBattleMapAsPerRule(battles: Battle[]): Battle[];
 
-  execute(battleMap: Map<string, Battle>): Map<string, Battle> {
-    let updatedBattleMap: Map<string, Battle> = battleMap;
-    if (this.shouldThisRuleExecute(battleMap)) {
-      updatedBattleMap = this.updateBattleMapAsPerRule(battleMap);
+  execute(battles: Battle[]): Battle[] {
+    let updatedBattles: Battle[] = battles;
+    if (this.shouldThisRuleExecute(battles)) {
+      updatedBattles = this.updateBattleMapAsPerRule(battles);
     }
 
     if (this.nextRule) {
-      return this.nextRule?.execute(updatedBattleMap);
+      return this.nextRule?.execute(updatedBattles);
     } else {
-      return updatedBattleMap;
+      return updatedBattles;
     }
   }
 }

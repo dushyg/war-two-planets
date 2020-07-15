@@ -9,16 +9,10 @@ import { Service } from 'typedi';
 
 // @Service(SubstitutionManagerService)
 export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
-  public getBattlesAfterSubstitutionAttempt(
-    battles: Map<string, Battle>
-  ): Map<string, Battle> {
-    let battleArray: Battle[] = Array.from(battles).map((b) => ({ ...b[1] }));
+  public getBattlesAfterSubstitutionAttempt(battles: Battle[]): Battle[] {
+    let battlesToBeUpdated: Battle[] = battles.map((b) => ({ ...b }));
 
-    battleArray = this.attemptSubstitutionOnAllBattles(battleArray);
-
-    return new Map<string, Battle>(
-      battleArray.map((battle) => [battle.defenderCombatantCode, battle])
-    );
+    return this.attemptSubstitutionOnAllBattles(battlesToBeUpdated);
   }
 
   private attemptSubstitutionOnAllBattles(battleArray: Battle[]): Battle[] {
