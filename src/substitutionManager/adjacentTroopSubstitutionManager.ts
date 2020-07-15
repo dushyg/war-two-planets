@@ -1,7 +1,10 @@
 import { SubstitutionManager } from './substitutionManager';
 import { Army, Battle } from '../models';
 import { SUBSTITUTION_POWER } from '../constants';
-import { getRequiredDefendersCount, isSubstitutionRequired } from '../warUtils';
+import {
+  getRequiredDefendersCount,
+  areAnyInvadersUntackled,
+} from '../warUtils';
 import { Service } from 'typedi';
 
 // @Service(SubstitutionManagerService)
@@ -19,7 +22,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   }
 
   private attemptSubstitutionOnAllBattles(battleArray: Battle[]): Battle[] {
-    if (!isSubstitutionRequired(battleArray)) {
+    if (!areAnyInvadersUntackled(battleArray)) {
       return battleArray;
     }
     let didSubstitutionHappen = false;

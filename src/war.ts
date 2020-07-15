@@ -2,8 +2,12 @@ import Container from 'typedi';
 import { BattleCreator } from './battleCreator';
 import { Army, Battle, WarResult } from './models';
 import { SubstitutionManager } from './substitutionManager/substitutionManager';
-import { SubstitutionManagerService } from './typediConfig';
+import {
+  SubstitutionManagerService,
+  WarRuleTemplateService,
+} from './typediConfig';
 import { getRequiredDefendersCount } from './warUtils';
+import { WarRuleTemplate } from './warRules/warRuleTemplate';
 
 export class War {
   public fight(invadingArmy: Army, defendingArmy: Army): WarResult {
@@ -13,31 +17,31 @@ export class War {
       defendingArmy
     );
 
-    const updatedBattles: Map<string, Battle> = this.counterInvaders(battles);
+    // const updatedBattles: Map<string, Battle> = this.counterInvaders(battles);
 
-    // obtain the war result after first round without substitution
-    const warResult: WarResult = this.getWarResult(updatedBattles);
-    // console.log('After First Defence ', warResult);
+    // // obtain the war result after first round without substitution
+    // const warResult: WarResult = this.getWarResult(updatedBattles);
+    // // console.log('After First Defence ', warResult);
 
-    if (!warResult.isDefenceSuccessful) {
-      const substitutionManager: SubstitutionManager = Container.get(
-        SubstitutionManagerService
-      );
+    // if (!warResult.isDefenceSuccessful) {
+    //   const substitutionManager: SubstitutionManager = Container.get(
+    //     SubstitutionManagerService
+    //   );
 
-      const updatedBattlesAfterSubstitution: Map<
-        string,
-        Battle
-      > = substitutionManager.getBattlesAfterSubstitutionAttempt(
-        updatedBattles
-      );
+    //   const updatedBattlesAfterSubstitution: Map<
+    //     string,
+    //     Battle
+    //   > = substitutionManager.getBattlesAfterSubstitutionAttempt(
+    //     updatedBattles
+    //   );
 
-      const warResultAfterSubstitution: WarResult = this.getWarResult(
-        updatedBattlesAfterSubstitution
-      );
-      return warResultAfterSubstitution;
-    } else {
-      return warResult;
-    }
+    const warRuleChain: WarRuleTemplate = Container.get(WarRuleTemplateService);
+    const updatedBattlesAfterCounteringAttack = warRuleChain.execute(battles);
+    return this.getWarResult(updatedBattlesAfterCounteringAttack);
+    //   return warResultAfterSubstitution;
+    // } else {
+    //   return warResult;
+    // }
   }
 
   public counterInvaders(battles: Map<string, Battle>): Map<string, Battle> {
