@@ -10,6 +10,7 @@
     "tslint": "tslint -p tsconfig.json",
     "postinstall": "npm run build",
     "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
     "debug": "node.exe --nolazy -r ts-node/register --inspect-brk=9299 -- src/geektrust.ts"
   },
   "keywords": [],
