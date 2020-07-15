@@ -16,6 +16,11 @@ import { WarResultStringFormatter } from './warResultFormatter/warResultStringFo
 import { OutputWriter } from './outputWriter/outputWriter';
 import { SpaceDelimitedStringFormatter } from './warResultFormatter/spaceDelimitedStringFormatter';
 import { ConsoleOutputWriter } from './outputWriter/ConsoleOutputWriter';
+import { WarRuleTemplate } from './warRules/warRuleTemplate';
+import { PowerRule } from './warRules/powerRule';
+import { DEFENDER_TACKLING_POWER } from './constants';
+import { LikeToLikeRule } from './warRules/likeToLikeRule';
+import { SubstitutionRule } from './warRules/substitutionRule';
 
 export const InputGetterService = new Token<InputGetter>();
 export const StringInputParserService = new Token<StringInputParser>();
@@ -25,6 +30,8 @@ export const CombatantMatcherService = new Token<CombatantMatcher>();
 export const SubstitutionManagerService = new Token<SubstitutionManager>();
 export const WarResultFormatterService = new Token<WarResultStringFormatter>();
 export const OutputWriterService = new Token<OutputWriter>();
+export const WarRuleTemplateService = new Token<WarRuleTemplate>();
+
 export function initializeTypeDiContainer() {
   Container.set(WarResultFormatterService, new SpaceDelimitedStringFormatter());
   Container.set(OutputWriterService, new ConsoleOutputWriter());
@@ -40,5 +47,20 @@ export function initializeTypeDiContainer() {
   Container.set(
     SubstitutionManagerService,
     new AdjacentTroopSubstitutionManager()
+  );
+  setupWarRuleChain();
+}
+
+function setupWarRuleChain() {
+  Container.set(
+    WarRuleTemplateService,
+    new PowerRule(
+      DEFENDER_TACKLING_POWER,
+      (battleMap) => true,
+      new LikeToLikeRule(
+        (battleMap) => true,
+        new SubstitutionRule((battleMap) => true, null)
+      )
+    )
   );
 }
