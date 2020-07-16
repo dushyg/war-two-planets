@@ -21,10 +21,6 @@ class App {
     this.invaderArmyProvider = Container.get(InvaderArgsArmyProviderService);
     this.outputWriter = Container.get(OutputWriterService);
   }
-  // constructor(
-  //   private defenderArmyProvider: ArmyProvider,
-  //   private invaderArmyProvider: ArmyProvider
-  // ) {}
   public start(): void {
     try {
       const war = new War();
@@ -33,10 +29,8 @@ class App {
         this.defenderArmyProvider.getArmy()
       );
       this.outputWriter.write(warResult);
-      // todo ouptut result to console
     } catch (error) {
       console.error(error);
-      throw error;
     }
   }
 }

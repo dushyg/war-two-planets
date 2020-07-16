@@ -1,16 +1,16 @@
-import { SubstitutionManager } from './substitutionManager';
-import { Army, Battle } from '../models';
 import { SUBSTITUTION_POWER } from '../constants';
+import { Battle } from '../models';
 import {
-  getRequiredDefendersCount,
   areAnyInvadersUntackled,
+  getRequiredDefendersCount,
 } from '../warUtils';
-import { Service } from 'typedi';
+import { SubstitutionManager } from './substitutionManager';
 
-// @Service(SubstitutionManagerService)
 export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   public getBattlesAfterSubstitutionAttempt(battles: Battle[]): Battle[] {
-    let battlesToBeUpdated: Battle[] = battles.map((b) => ({ ...b }));
+    // creating a clone of batle array as we will need to update these battles
+    // to reflect status after taking help from adjacent defenders i.e substitution
+    const battlesToBeUpdated: Battle[] = battles.map((b) => ({ ...b }));
 
     return this.attemptSubstitutionOnAllBattles(battlesToBeUpdated);
   }
@@ -20,7 +20,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
       return battleArray;
     }
     let didSubstitutionHappen = false;
-    battleArray.forEach((battle, index, array) => {
+    battleArray.forEach((battle) => {
       const currentDefenderPosition = battle.defenderDeploymentPosition;
       const info: {
         didSubstitutionHappen: boolean;
