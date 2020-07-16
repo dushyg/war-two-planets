@@ -16,9 +16,6 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   }
 
   private attemptSubstitutionOnAllBattles(battleArray: Battle[]): Battle[] {
-    if (!areAnyInvadersUntackled(battleArray)) {
-      return battleArray;
-    }
     let didSubstitutionHappen = false;
     battleArray.forEach((battle) => {
       const currentDefenderPosition = battle.defenderDeploymentPosition;
@@ -32,6 +29,9 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     });
 
     if (!didSubstitutionHappen) {
+      return battleArray;
+    }
+    if (!areAnyInvadersUntackled(battleArray)) {
       return battleArray;
     }
     return this.attemptSubstitutionOnAllBattles(battleArray);
