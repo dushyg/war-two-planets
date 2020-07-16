@@ -21,7 +21,7 @@ export abstract class WarRuleTemplate {
     }
 
     if (this.nextRule) {
-      return this.nextRule?.execute(updatedBattles);
+      return this.nextRule.execute(updatedBattles);
     } else {
       return updatedBattles;
     }

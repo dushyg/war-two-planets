@@ -120,6 +120,18 @@ describe('War', () => {
     expect(output).toEqual('LOSES 100H 29E 10AT 5SG');
   });
 
+  it('should return correct output when input is FALICORNIA_ATTACK 198H 102E 20AT 8SG', () => {
+    process.argv.push('src\\testInputs\\warInput9.txt');
+    const war = new War();
+    const warResult: WarResult = war.fight(
+      invaderArmyProvider.getArmy(),
+      defenderArmyProvider.getArmy()
+    );
+    const output = warResultStringFormatter.format(warResult);
+
+    expect(output).toEqual('LOSES 100H 50E 10AT 4SG');
+  });
+
   it('should return error when forces are in incorrect order FALICORNIA_ATTACK 50E 250H 20AT 15SG', () => {
     process.argv.push('src\\testInputs\\errorIncorrectOrderInput.txt');
     const war = new War();
