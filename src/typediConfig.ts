@@ -21,6 +21,7 @@ import { PowerRule } from './warRules/powerRule';
 import { DEFENDER_TACKLING_POWER } from './constants';
 import { LikeToLikeRule } from './warRules/likeToLikeRule';
 import { SubstitutionRule } from './warRules/substitutionRule';
+import { areAnyInvadersUntackled } from './warUtils';
 
 export const InputGetterService = new Token<InputGetter>();
 export const StringInputParserService = new Token<StringInputParser>();
@@ -58,8 +59,8 @@ function setupWarRuleChain() {
       DEFENDER_TACKLING_POWER,
       (battles) => true,
       new LikeToLikeRule(
-        (battles) => true,
-        new SubstitutionRule((battles) => true, null)
+        areAnyInvadersUntackled,
+        new SubstitutionRule(areAnyInvadersUntackled, null)
       )
     )
   );
