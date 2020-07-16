@@ -34,6 +34,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     if (!areAnyInvadersUntackled(battleArray)) {
       return battleArray;
     }
+    // using tail call optimization for runtime and memory performance
     return this.attemptSubstitutionOnAllBattles(battleArray);
   }
 
