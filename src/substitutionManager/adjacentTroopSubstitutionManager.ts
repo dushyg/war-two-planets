@@ -6,6 +6,13 @@ import {
 } from '../warUtils';
 import { SubstitutionManager } from './substitutionManager';
 
+interface SubstitutionInfo {
+  isSubstitutionPossible: boolean;
+  substitutingDefendersCount: number;
+  substitutedDefendersCount: number;
+  substituingDefenderPosition: number;
+}
+
 export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   public getBattlesAfterSubstitutionAttempt(battles: Battle[]): Battle[] {
     // creating a clone of batle array as we will need to update these battles
@@ -19,11 +26,12 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     let didSubstitutionHappen = false;
     battleArray.forEach((battle) => {
       const currentDefenderPosition = battle.defenderDeploymentPosition;
-      const info: {
-        didSubstitutionHappen: boolean;
-        allSubstitutionsComplete: boolean;
-      } = this.checkForSubstitution(currentDefenderPosition, battleArray);
-      if (info.didSubstitutionHappen) {
+      if (
+        this.didSubstitutionHappenForCurrentBattle(
+          currentDefenderPosition,
+          battleArray
+        )
+      ) {
         didSubstitutionHappen = true;
       }
     });
@@ -38,16 +46,16 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     return this.attemptSubstitutionOnAllBattles(battleArray);
   }
 
-  private checkForSubstitution(
+  private didSubstitutionHappenForCurrentBattle(
     currentDefenderPosition: number,
     battleArray: Battle[]
-  ) {
+  ): boolean {
     let leftCandidateBattle;
     let rightCandidateBattle;
 
     const currentBattle = battleArray[currentDefenderPosition];
     if (currentBattle && currentBattle.untackledInvadersCount === 0) {
-      return { didSubstitutionHappen: false, allSubstitutionsComplete: false };
+      return false;
     }
     let leftCandidateSubstitutionInfo;
     let rightCandidateSubstitutionInfo;
@@ -70,7 +78,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
           leftCandidateBattle,
           leftCandidateSubstitutionInfo
         );
-        return { didSubstitutionHappen: true, allSubstitutionsComplete: true };
+        return true;
       }
     }
 
@@ -92,7 +100,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
           rightCandidateBattle,
           rightCandidateSubstitutionInfo
         );
-        return { didSubstitutionHappen: true, allSubstitutionsComplete: true };
+        return true;
       }
     }
 
@@ -105,7 +113,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
           leftCandidateBattle,
           leftCandidateSubstitutionInfo
         );
-        return { didSubstitutionHappen: true, allSubstitutionsComplete: false };
+        return true;
       }
     }
 
@@ -118,14 +126,17 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
           rightCandidateBattle,
           rightCandidateSubstitutionInfo
         );
-        return { didSubstitutionHappen: true, allSubstitutionsComplete: false };
+        return true;
       }
     }
-    return { didSubstitutionHappen: false, allSubstitutionsComplete: false };
+    return false;
   }
 
-  private getSubstitutionInfo(currentBattle: Battle, candidateBattle: Battle) {
-    const substitutionInfo = {
+  private getSubstitutionInfo(
+    currentBattle: Battle,
+    candidateBattle: Battle
+  ): SubstitutionInfo {
+    const substitutionInfo: SubstitutionInfo = {
       isSubstitutionPossible: false,
       substitutingDefendersCount: 0,
       substitutedDefendersCount: 0,
@@ -196,13 +207,8 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   private substitute(
     currentBattle: Battle,
     candidateBattle: Battle,
-    candidateSubstitutionInfo: {
-      isSubstitutionPossible: boolean;
-      substitutingDefendersCount: number;
-      substitutedDefendersCount: number;
-      substituingDefenderPosition: number;
-    }
-  ) {
+    candidateSubstitutionInfo: SubstitutionInfo
+  ): void {
     currentBattle.untackledInvadersCount =
       currentBattle.untackledInvadersCount -
       candidateSubstitutionInfo.substitutedDefendersCount *
