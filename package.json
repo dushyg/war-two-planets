@@ -8,7 +8,7 @@
     "start:dev": "nodemon",
     "start": "node build/geektrust.js",
     "lint": "eslint --ext .js \"src/**/*.{ts,tsx}\" --ignore-pattern '/build/*'",
-    "lint:fix": "eslint '**/*.{js,ts}' --ignore-pattern '/build/*' --quiet --fix",
+    "lint:fix": "eslint --ext .js \"src/**/*.{ts,tsx}\" --ignore-pattern '/build/*' --quiet --fix",
     "postinstall": "npm run build",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
