@@ -2,7 +2,7 @@ import { Battle } from '../models';
 import { PowerRule } from './powerRule';
 
 describe('PowerWarRule', () => {
-  const shouldThisRuleExecute = (battles: Battle[]) => true;
+  const shouldThisRuleExecute = () => true;
   let powerRule: PowerRule;
   const tacklingPower = 2;
   let battles: Battle[];
@@ -20,7 +20,7 @@ describe('PowerWarRule', () => {
     const updatedBattles = powerRule.execute(battles);
     expect(updatedBattles).toBeTruthy();
     expect(updatedBattles !== battles).toBeTruthy();
-    updatedBattles.forEach((battle, code) => {
+    updatedBattles.forEach((battle) => {
       expect(battle).toBeTruthy();
       expect(battle.defenderTacklingPower).toBe(tacklingPower);
     });

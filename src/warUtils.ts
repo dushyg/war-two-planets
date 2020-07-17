@@ -7,6 +7,6 @@ export function getRequiredDefendersCount(
   return Math.ceil(invadersCount / tacklingPower);
 }
 
-export function areAnyInvadersUntackled(battles: Battle[]) {
+export function areAnyInvadersUntackled(battles: Battle[]): boolean {
   return battles.some((battle) => battle.untackledInvadersCount > 0);
 }

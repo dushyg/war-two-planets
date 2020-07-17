@@ -33,7 +33,7 @@ export const WarResultFormatterService = new Token<WarResultStringFormatter>();
 export const OutputWriterService = new Token<OutputWriter>();
 export const WarRuleTemplateService = new Token<WarRuleTemplate>();
 
-export function initializeTypeDiContainer() {
+export function initializeTypeDiContainer(): void {
   Container.set(WarResultFormatterService, new SpaceDelimitedStringFormatter());
   Container.set(OutputWriterService, new ConsoleOutputWriter());
   Container.set(InputGetterService, new ArgsInputGetter());
@@ -57,7 +57,7 @@ function setupWarRuleChain() {
     WarRuleTemplateService,
     new PowerRule(
       DEFENDER_TACKLING_POWER,
-      (battles) => true,
+      () => true,
       new LikeToLikeRule(
         areAnyInvadersUntackled,
         new SubstitutionRule(areAnyInvadersUntackled, null),

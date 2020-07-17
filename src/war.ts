@@ -1,12 +1,7 @@
 import Container from 'typedi';
 import { BattleCreator } from './battleCreator';
 import { Army, Battle, WarResult } from './models';
-import { SubstitutionManager } from './substitutionManager/substitutionManager';
-import {
-  SubstitutionManagerService,
-  WarRuleTemplateService,
-} from './typediConfig';
-import { getRequiredDefendersCount } from './warUtils';
+import { WarRuleTemplateService } from './typediConfig';
 import { WarRuleTemplate } from './warRules/warRuleTemplate';
 
 export class War {
@@ -17,31 +12,9 @@ export class War {
       defendingArmy,
     );
 
-    // const updatedBattles: Map<string, Battle> = this.counterInvaders(battles);
-
-    // // obtain the war result after first round without substitution
-    // const warResult: WarResult = this.getWarResult(updatedBattles);
-    // // console.log('After First Defence ', warResult);
-
-    // if (!warResult.isDefenceSuccessful) {
-    //   const substitutionManager: SubstitutionManager = Container.get(
-    //     SubstitutionManagerService
-    //   );
-
-    //   const updatedBattlesAfterSubstitution: Map<
-    //     string,
-    //     Battle
-    //   > = substitutionManager.getBattlesAfterSubstitutionAttempt(
-    //     updatedBattles
-    //   );
-
     const warRuleChain: WarRuleTemplate = Container.get(WarRuleTemplateService);
     const updatedBattlesAfterCounteringAttack = warRuleChain.execute(battles);
     return this.getWarResult(updatedBattlesAfterCounteringAttack);
-    //   return warResultAfterSubstitution;
-    // } else {
-    //   return warResult;
-    // }
   }
 
   private getWarResult(battles: Battle[]): WarResult {

@@ -1,8 +1,5 @@
-import { Army, Battle } from '../models';
-import { Token } from 'typedi';
+import { Battle } from '../models';
 
 export interface SubstitutionManager {
   getBattlesAfterSubstitutionAttempt(battles: Battle[]): Battle[];
 }
-
-// export const SubstitutionManagerService = new Token<SubstitutionManager>();

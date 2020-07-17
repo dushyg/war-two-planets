@@ -5,7 +5,6 @@ import { FORCE_CODES } from '../constants';
 /**
  * Implements the Like for Like rule and finds defender based on codeName
  */
-// @Service(CombatantMatcherService)
 export class NameBasedCombatantMatcher implements CombatantMatcher {
   public getDefender(invader: Combatant, defenderArmy: Army): Combatant {
     const defender = defenderArmy.forces.get(invader.codeName);

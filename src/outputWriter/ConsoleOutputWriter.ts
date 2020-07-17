@@ -10,7 +10,6 @@ export class ConsoleOutputWriter implements OutputWriter {
     this.resultFormatter = Container.get(WarResultFormatterService);
   }
   public write(warResult: WarResult): void {
-    // tslint:disable-next-line: no-console
     console.log(this.resultFormatter.format(warResult));
   }
 }

@@ -1,4 +1,4 @@
-import { Combatant, Army, WarResult } from '../models';
+import { WarResult } from '../models';
 import Container from 'typedi';
 import { WarResultFormatterService } from '../typediConfig';
 import { SpaceDelimitedStringFormatter } from '../warResultFormatter/spaceDelimitedStringFormatter';

@@ -1,7 +1,6 @@
 import { FORCE_CODES, PLANET_NAMES } from '../constants';
 import { Army, Combatant } from '../models';
 import { ArmyProvider } from './armyProvider';
-import { Token, Service } from 'typedi';
 
 // export const DefenderPredefinedArmyProviderService = new Token<ArmyProvider>();
 /**
