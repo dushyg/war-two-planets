@@ -5,7 +5,7 @@ export class PowerRule extends WarRuleTemplate {
   constructor(
     private tacklingPower: number,
     shouldThisRuleExecute: (battles: Battle[]) => boolean,
-    nextRule: WarRuleTemplate | null
+    nextRule: WarRuleTemplate | null,
   ) {
     super(shouldThisRuleExecute, nextRule);
   }

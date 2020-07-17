@@ -8,7 +8,7 @@ export class SubstitutionRule extends WarRuleTemplate {
   private substitutionManager: SubstitutionManager;
   constructor(
     shouldThisRuleExecute: (battles: Battle[]) => boolean,
-    nextRule: WarRuleTemplate | null
+    nextRule: WarRuleTemplate | null,
   ) {
     super(shouldThisRuleExecute, nextRule);
     this.substitutionManager = Container.get(SubstitutionManagerService);

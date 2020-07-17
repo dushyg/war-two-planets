@@ -70,7 +70,7 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
   }
 
   private getForceMap(
-    enemyForceMap: Map<string, number>
+    enemyForceMap: Map<string, number>,
   ): Map<string, Combatant> {
     return new Map<string, Combatant>(
       Array.from(enemyForceMap, ([combatantCode, combatantCount], index) => {
@@ -83,7 +83,7 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
             tacklingPower: 0.5,
           } as Combatant,
         ];
-      })
+      }),
     );
   }
 

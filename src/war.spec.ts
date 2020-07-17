@@ -26,7 +26,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('WINS 1H 2E 0AT 3SG');
@@ -37,7 +37,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('LOSES 100H 38E 10AT 5SG');
@@ -48,7 +48,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('WINS 100H 11E 0AT 0SG');
@@ -59,7 +59,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('WINS 0H 0E 9AT 5SG');
@@ -70,7 +70,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('WINS 29H 50E 3AT 1SG');
@@ -81,7 +81,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('LOSES 100H 50E 10AT 5SG');
@@ -92,7 +92,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('WINS 100H 38E 2AT 1SG');
@@ -103,7 +103,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('LOSES 50H 41E 10AT 5SG');
@@ -114,7 +114,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
     expect(output).toEqual('LOSES 100H 29E 10AT 5SG');
@@ -125,7 +125,7 @@ describe('War', () => {
     const war = new War();
     const warResult: WarResult = war.fight(
       invaderArmyProvider.getArmy(),
-      defenderArmyProvider.getArmy()
+      defenderArmyProvider.getArmy(),
     );
     const output = warResultStringFormatter.format(warResult);
 

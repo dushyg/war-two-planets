@@ -5,7 +5,7 @@ import { WarRuleTemplate } from './warRuleTemplate';
 export class LikeToLikeRule extends WarRuleTemplate {
   constructor(
     shouldThisRuleExecute: (battles: Battle[]) => boolean,
-    nextRule: WarRuleTemplate | null
+    nextRule: WarRuleTemplate | null,
   ) {
     super(shouldThisRuleExecute, nextRule);
   }
@@ -40,7 +40,7 @@ export class LikeToLikeRule extends WarRuleTemplate {
     // Calculate defendersRequired based on their tackling Power
     const defendersRequired = getRequiredDefendersCount(
       battle.untackledInvadersCount,
-      battle.defenderTacklingPower
+      battle.defenderTacklingPower,
     );
     status.freeDefendersAfterBattle =
       battle.availableDefendersCount - defendersRequired;

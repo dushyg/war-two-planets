@@ -14,7 +14,7 @@ export class War {
     const battleCreator: BattleCreator = Container.get(BattleCreator);
     const battles: Battle[] = battleCreator.createBattles(
       invadingArmy,
-      defendingArmy
+      defendingArmy,
     );
 
     // const updatedBattles: Map<string, Battle> = this.counterInvaders(battles);
@@ -56,7 +56,7 @@ export class War {
       }
       result.forcesUsed.set(
         currentBattle.defenderCombatantCode,
-        currentBattle.engagedDefendersCount
+        currentBattle.engagedDefendersCount,
       );
       return result;
     }, warResult);

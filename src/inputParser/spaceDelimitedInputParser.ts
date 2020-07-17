@@ -12,7 +12,7 @@ export class SpaceDelimitedInputParser implements StringInputParser {
    */
   public parseString(
     input: string,
-    tokensToParse: string[]
+    tokensToParse: string[],
   ): Map<string, number> {
     // const attackString = input ? input.trim() : input;
 
@@ -32,7 +32,7 @@ export class SpaceDelimitedInputParser implements StringInputParser {
    */
   private validateInput(
     attackString: string,
-    tokensToParse: string[]
+    tokensToParse: string[],
   ): boolean {
     if (!attackString) {
       throw new Error(ERRORS.noOrEmptyInputString);
@@ -49,7 +49,7 @@ export class SpaceDelimitedInputParser implements StringInputParser {
   private createMatcherRegexFromTokens(tokensToParse: string[]): RegExp {
     const regexString = tokensToParse.reduce(
       this.buildRegex('\\d+'),
-      tokensToParse[0]
+      tokensToParse[0],
     );
     return new RegExp(`^${regexString}$`);
   }
@@ -62,7 +62,7 @@ export class SpaceDelimitedInputParser implements StringInputParser {
    */
   private createEnemyCountMap(
     tokensToParse: string[],
-    attackString: string
+    attackString: string,
   ): Map<string, number> {
     const regex = this.createRegexToExtractCounts(tokensToParse);
     const matches = attackString.match(regex);
@@ -90,7 +90,7 @@ export class SpaceDelimitedInputParser implements StringInputParser {
    */
   private extractEnemyCounts(
     codeArr: string[],
-    matches: RegExpMatchArray
+    matches: RegExpMatchArray,
   ): Map<string, number> {
     return codeArr.reduce((countMap, code, index) => {
       countMap.set(code, parseInt(matches[index], 10));
@@ -103,12 +103,12 @@ export class SpaceDelimitedInputParser implements StringInputParser {
    * @param matcher Regex token like (\\d+) or \\d+ that will be prepended to tokens
    */
   private buildRegex(
-    matcher: string
+    matcher: string,
   ): (
     previousValue: string,
     currentValue: string,
     currentIndex: number,
-    array: string[]
+    array: string[],
   ) => string {
     return (finalRegex, token, index) => {
       if (index > 0) {

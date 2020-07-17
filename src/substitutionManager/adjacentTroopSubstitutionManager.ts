@@ -29,7 +29,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
       if (
         this.didSubstitutionHappenForCurrentBattle(
           currentDefenderPosition,
-          battleArray
+          battleArray,
         )
       ) {
         didSubstitutionHappen = true;
@@ -48,7 +48,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
 
   private didSubstitutionHappenForCurrentBattle(
     currentDefenderPosition: number,
-    battleArray: Battle[]
+    battleArray: Battle[],
   ): boolean {
     let leftCandidateBattle;
     let rightCandidateBattle;
@@ -66,7 +66,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
       leftCandidateBattle = battleArray[leftPosition];
       leftCandidateSubstitutionInfo = this.getSubstitutionInfo(
         currentBattle,
-        leftCandidateBattle
+        leftCandidateBattle,
       );
       // substitute with left defender if all enemies can be tackled with left forces
       if (
@@ -76,7 +76,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
         this.substitute(
           currentBattle,
           leftCandidateBattle,
-          leftCandidateSubstitutionInfo
+          leftCandidateSubstitutionInfo,
         );
         return true;
       }
@@ -88,7 +88,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
       rightCandidateBattle = battleArray[rightPosition];
       rightCandidateSubstitutionInfo = this.getSubstitutionInfo(
         battleArray[currentDefenderPosition],
-        rightCandidateBattle
+        rightCandidateBattle,
       );
       // substitute with right defender if all enemies can be tackled with right forces
       if (
@@ -98,7 +98,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
         this.substitute(
           currentBattle,
           rightCandidateBattle,
-          rightCandidateSubstitutionInfo
+          rightCandidateSubstitutionInfo,
         );
         return true;
       }
@@ -111,7 +111,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
         this.substitute(
           currentBattle,
           leftCandidateBattle,
-          leftCandidateSubstitutionInfo
+          leftCandidateSubstitutionInfo,
         );
         return true;
       }
@@ -124,7 +124,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
         this.substitute(
           currentBattle,
           rightCandidateBattle,
-          rightCandidateSubstitutionInfo
+          rightCandidateSubstitutionInfo,
         );
         return true;
       }
@@ -134,7 +134,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
 
   private getSubstitutionInfo(
     currentBattle: Battle,
-    candidateBattle: Battle
+    candidateBattle: Battle,
   ): SubstitutionInfo {
     const substitutionInfo: SubstitutionInfo = {
       isSubstitutionPossible: false,
@@ -150,7 +150,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
     ) {
       const additionalReplacedDefendersRequired = getRequiredDefendersCount(
         currentBattle.untackledInvadersCount,
-        currentBattle.defenderTacklingPower
+        currentBattle.defenderTacklingPower,
       );
       let replacementPower;
       if (
@@ -165,7 +165,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
       const info = this.getSubstitutionCount(
         additionalReplacedDefendersRequired,
         replacementPower,
-        candidateBattle.availableDefendersCount
+        candidateBattle.availableDefendersCount,
       );
       substitutionInfo.isSubstitutionPossible = info.isSubstitutionPossible;
       substitutionInfo.substitutingDefendersCount =
@@ -181,7 +181,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   private getSubstitutionCount(
     additionalReplacedDefendersRequired: number,
     replacementPower: number,
-    availableDefendersCount: number
+    availableDefendersCount: number,
   ) {
     const substitutionInfo = {
       isSubstitutionPossible: false,
@@ -189,7 +189,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
       substitutedDefendersCount: 0,
     };
     const requiredReplacingDefenders = Math.ceil(
-      additionalReplacedDefendersRequired / replacementPower
+      additionalReplacedDefendersRequired / replacementPower,
     );
     if (availableDefendersCount >= requiredReplacingDefenders) {
       substitutionInfo.isSubstitutionPossible = true;
@@ -207,7 +207,7 @@ export class AdjacentTroopSubstitutionManager implements SubstitutionManager {
   private substitute(
     currentBattle: Battle,
     candidateBattle: Battle,
-    candidateSubstitutionInfo: SubstitutionInfo
+    candidateSubstitutionInfo: SubstitutionInfo,
   ): void {
     currentBattle.untackledInvadersCount =
       currentBattle.untackledInvadersCount -

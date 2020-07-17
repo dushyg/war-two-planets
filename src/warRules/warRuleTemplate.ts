@@ -6,7 +6,7 @@ export abstract class WarRuleTemplate {
 
   constructor(
     shouldThisRuleExecute: (battles: Battle[]) => boolean,
-    nextRule: WarRuleTemplate | null
+    nextRule: WarRuleTemplate | null,
   ) {
     this.shouldThisRuleExecute = shouldThisRuleExecute;
     this.nextRule = nextRule;

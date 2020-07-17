@@ -8,7 +8,7 @@ describe('ConsoleOutputWriter', () => {
   it('write should write to console', () => {
     Container.set(
       WarResultFormatterService,
-      new SpaceDelimitedStringFormatter()
+      new SpaceDelimitedStringFormatter(),
     );
     const consoleSpy = jest.spyOn(console, 'log');
     const outputWriter = new ConsoleOutputWriter();

@@ -14,7 +14,7 @@ export class BattleCreator {
     return Array.from(invadingArmy.forces, ([combatantCode, combatant]) => {
       const defender: Combatant = this.combatantMatcher.getDefender(
         combatant,
-        defendingArmy
+        defendingArmy,
       );
       return {
         availableDefendersCount: defender.numberOfUnits,

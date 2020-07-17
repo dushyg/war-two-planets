@@ -40,14 +40,14 @@ export function initializeTypeDiContainer() {
   Container.set(StringInputParserService, new SpaceDelimitedInputParser());
   Container.set(
     DefenderPredefinedArmyProviderService,
-    new DefenderPredefinedArmyProvider()
+    new DefenderPredefinedArmyProvider(),
   );
   Container.set(InvaderArgsArmyProviderService, new InvaderArgsArmyProvider());
   Container.set(CombatantMatcherService, new NameBasedCombatantMatcher());
   Container.set(BattleCreator, new BattleCreator());
   Container.set(
     SubstitutionManagerService,
-    new AdjacentTroopSubstitutionManager()
+    new AdjacentTroopSubstitutionManager(),
   );
   setupWarRuleChain();
 }
@@ -60,8 +60,8 @@ function setupWarRuleChain() {
       (battles) => true,
       new LikeToLikeRule(
         areAnyInvadersUntackled,
-        new SubstitutionRule(areAnyInvadersUntackled, null)
-      )
-    )
+        new SubstitutionRule(areAnyInvadersUntackled, null),
+      ),
+    ),
   );
 }

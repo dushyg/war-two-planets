@@ -22,7 +22,7 @@ describe('SpaceDelimitedInputParser', () => {
       number
     > = new SpaceDelimitedInputParser().parseString(
       `${ATTACK_INPUT_STRING_START_TOKEN} 250H 50E 3AT 15SG`,
-      tokensToParse
+      tokensToParse,
     );
     expect(enemyMap).toBeTruthy();
     expect(enemyMap.size).toEqual(4);
@@ -38,7 +38,7 @@ describe('SpaceDelimitedInputParser', () => {
       number
     > = new SpaceDelimitedInputParser().parseString(
       `${ATTACK_INPUT_STRING_START_TOKEN} 0H 0E 0AT 0SG`,
-      tokensToParse
+      tokensToParse,
     );
     expect(enemyMap).toBeTruthy();
     expect(enemyMap.size).toEqual(4);
@@ -58,7 +58,7 @@ describe('SpaceDelimitedInputParser', () => {
     expect(() => {
       new SpaceDelimitedInputParser().parseString(
         `   ${ATTACK_INPUT_STRING_START_TOKEN} 250H 50E 3AT 15SG`,
-        tokensToParse
+        tokensToParse,
       );
     }).toThrowError(ERRORS.invalidInputString);
   });
@@ -67,7 +67,7 @@ describe('SpaceDelimitedInputParser', () => {
     expect(() => {
       new SpaceDelimitedInputParser().parseString(
         `${ATTACK_INPUT_STRING_START_TOKEN} 250H 50E 3AT 15SG  `,
-        tokensToParse
+        tokensToParse,
       );
     }).toThrowError(ERRORS.invalidInputString);
   });
@@ -75,7 +75,7 @@ describe('SpaceDelimitedInputParser', () => {
     expect(() => {
       new SpaceDelimitedInputParser().parseString(
         '250H 50E 3AT 15SG',
-        tokensToParse
+        tokensToParse,
       );
     }).toThrowError(ERRORS.invalidInputString);
   });
@@ -84,7 +84,7 @@ describe('SpaceDelimitedInputParser', () => {
     expect(() => {
       new SpaceDelimitedInputParser().parseString(
         `${ATTACK_INPUT_STRING_START_TOKEN} 50E 250H 3AT 15SG`,
-        tokensToParse
+        tokensToParse,
       );
     }).toThrowError(ERRORS.invalidInputString);
   });
@@ -96,7 +96,7 @@ describe('SpaceDelimitedInputParser', () => {
       number
     > = new SpaceDelimitedInputParser().parseString(
       `${ATTACK_INPUT_STRING_START_TOKEN} 250H 50E 3AT 15SG 10C`,
-      tokensToParse
+      tokensToParse,
     );
     expect(enemyMap).toBeTruthy();
     expect(enemyMap.size).toEqual(5);
@@ -115,7 +115,7 @@ describe('SpaceDelimitedInputParser', () => {
       number
     > = new SpaceDelimitedInputParser().parseString(
       `ATTACK_INPUT_STRING_START_TOKEN 250H 50E 3AT 15SG 10C`,
-      tokensToParse
+      tokensToParse,
     );
     expect(enemyMap).toBeTruthy();
     expect(enemyMap.size).toEqual(5);

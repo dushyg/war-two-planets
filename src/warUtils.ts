@@ -2,7 +2,7 @@ import { Battle } from './models';
 
 export function getRequiredDefendersCount(
   invadersCount: number,
-  tacklingPower: number
+  tacklingPower: number,
 ): number {
   return Math.ceil(invadersCount / tacklingPower);
 }

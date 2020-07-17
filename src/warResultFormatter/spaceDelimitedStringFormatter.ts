@@ -11,7 +11,7 @@ export class SpaceDelimitedStringFormatter implements WarResultStringFormatter {
       (resultString, [combatant, count]) => {
         return `${resultString} ${count}${combatant}`;
       },
-      outcome
+      outcome,
     );
   }
 }
