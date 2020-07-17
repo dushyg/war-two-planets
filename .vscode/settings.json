@@ -1,6 +1,9 @@
 {
-  "prettier.singleQuote": true,
-  "tslint.configFile": "tslint.json",
-  "javascript.preferences.quoteStyle": "single",
-  "debug.node.autoAttach": "on"
+    "prettier.singleQuote": true,
+    "tslint.configFile": "tslint.json",
+    "javascript.preferences.quoteStyle": "single",
+    "debug.node.autoAttach": "on",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
 }

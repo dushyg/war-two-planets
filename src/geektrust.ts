@@ -16,7 +16,7 @@ class App {
   private outputWriter: OutputWriter;
   constructor() {
     this.defenderArmyProvider = Container.get(
-      DefenderPredefinedArmyProviderService
+      DefenderPredefinedArmyProviderService,
     );
     this.invaderArmyProvider = Container.get(InvaderArgsArmyProviderService);
     this.outputWriter = Container.get(OutputWriterService);
@@ -26,7 +26,7 @@ class App {
       const war = new War();
       const warResult: WarResult = war.fight(
         this.invaderArmyProvider.getArmy(),
-        this.defenderArmyProvider.getArmy()
+        this.defenderArmyProvider.getArmy(),
       );
       this.outputWriter.write(warResult);
     } catch (error) {

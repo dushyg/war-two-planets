@@ -7,7 +7,8 @@
     "build": "rimraf ./build && tsc",
     "start:dev": "nodemon",
     "start": "node build/geektrust.js",
-    "tslint": "tslint -p tsconfig.json",
+    "lint": "eslint --ext .js \"src/**/*.{ts,tsx}\" --ignore-pattern '/build/*'",
+    "lint:fix": "eslint '**/*.{js,ts}' --ignore-pattern '/build/*' --quiet --fix",
     "postinstall": "npm run build",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
@@ -23,12 +24,17 @@
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "@types/node": "^12.12.45",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.0.0",
     "nodemon": "^1.19.1",
+    "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.1.1",
     "ts-node": "~7.0.0",
-    "tslint": "~5.15.0",
     "typescript": "~3.8.3"
   },
   "jest": {
