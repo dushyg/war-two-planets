@@ -33,7 +33,20 @@ The app helps King Shan decide what forces to deploy to match Al Falcone's attac
 To run unit tests :
 
 1. Open a terminal window and change into the directory 'war' which has the source code with package.json file i.e. cd war
-2. Type 'npm test'. It will run all unit tests with code coverage report using Jest Framework.
+2. Type 'npm test' in the terminal. It will run all unit tests with code coverage report using Jest Framework.
+
+# Dependency Injection
+
+Application uses 'TypeDI' libarary for dependency injection.
+
+# Documentation
+
+The application is documented using 'compodoc' npm package.
+To view the documentation :
+
+1. Open a terminal window and change into the directory 'war' which has the source code with package.json file i.e. cd war
+2. Type 'npm run serve:doc' in the terminal.
+3. Launch http://127.0.0.1:8080 in your browser.
 
 # Design considerations
 
