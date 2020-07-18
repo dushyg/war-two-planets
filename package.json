@@ -4,7 +4,7 @@
   "description": "A nodejs console app for GeekTrust backend problem - War",
   "main": "src/geektrust.js",
   "scripts": {
-    "build": "npm run lint && rimraf ./build && tsc",
+    "build": "npm run lint && npm run test && rimraf ./build && tsc",
     "start:dev": "nodemon",
     "start": "node build/geektrust.js",
     "lint": "eslint --ext .js \"src/**/*.{ts,tsx}\" --ignore-pattern '/build/*'",
