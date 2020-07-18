@@ -24,7 +24,7 @@ The app helps King Shan decide what forces to deploy to match Al Falcone's attac
 # Running the app
 
 1. Open a terminal window and change into the directory 'war' which has the source code with package.json file i.e. Type 'cd war' .
-2. Type 'npm start path_of_input_file' eg. npm start testInputs/warInput.txt .
+2. Type 'npm start path_of_input_file' eg. 'npm start src/testInputs/warInput.txt' .
    The input file should have enemy forces listed in this format: FALICORNIA_ATTACK 250H 50E 20AT 15SG
    This will execute the application and it will read this file and output to the console, the recommended forces that should be deployed and outcome of the war in this format:
 

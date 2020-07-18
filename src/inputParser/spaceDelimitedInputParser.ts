@@ -16,7 +16,7 @@ export class SpaceDelimitedInputParser implements StringInputParser {
     // const attackString = input ? input.trim() : input;
 
     if (!this.validateInput(input, tokensToParse)) {
-      throw new Error(ERRORS.invalidInputString);
+      throw new Error(ERRORS.INVALID_INPUT_STRING);
     }
 
     return this.createEnemyCountMap(tokensToParse, input);
@@ -34,7 +34,7 @@ export class SpaceDelimitedInputParser implements StringInputParser {
     tokensToParse: string[],
   ): boolean {
     if (!attackString) {
-      throw new Error(ERRORS.noOrEmptyInputString);
+      throw new Error(ERRORS.NO_OR_EMPTY_INPUT_STRING);
     }
     // Regex which tries to verify an exact match between attack string and expected format
     const regex = this.createMatcherRegexFromTokens(tokensToParse);

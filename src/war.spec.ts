@@ -138,7 +138,7 @@ describe('War', () => {
 
     expect(() => {
       war.fight(invaderArmyProvider.getArmy(), defenderArmyProvider.getArmy());
-    }).toThrow(ERRORS.invalidInputString);
+    }).toThrow(ERRORS.INVALID_INPUT_STRING);
   });
 
   it('should return error when there are spaces after input text |FALICORNIA_ATTACK 250H 50E 20AT 15SG |', () => {
@@ -147,7 +147,7 @@ describe('War', () => {
 
     expect(() => {
       war.fight(invaderArmyProvider.getArmy(), defenderArmyProvider.getArmy());
-    }).toThrow(ERRORS.invalidInputString);
+    }).toThrow(ERRORS.INVALID_INPUT_STRING);
   });
 
   it('should return error when there are spaces before input text | FALICORNIA_ATTACK 250H 50E 20AT 15SG|', () => {
@@ -156,7 +156,7 @@ describe('War', () => {
 
     expect(() => {
       war.fight(invaderArmyProvider.getArmy(), defenderArmyProvider.getArmy());
-    }).toThrow(ERRORS.invalidInputString);
+    }).toThrow(ERRORS.INVALID_INPUT_STRING);
   });
 
   it('should return error when input file is empty', () => {
@@ -165,7 +165,7 @@ describe('War', () => {
 
     expect(() => {
       war.fight(invaderArmyProvider.getArmy(), defenderArmyProvider.getArmy());
-    }).toThrow(ERRORS.noOrEmptyInputString);
+    }).toThrow(ERRORS.NO_OR_EMPTY_INPUT_STRING);
   });
 
   it('should return error when input file path is invalid', () => {
@@ -182,6 +182,6 @@ describe('War', () => {
 
     expect(() => {
       war.fight(invaderArmyProvider.getArmy(), defenderArmyProvider.getArmy());
-    }).toThrow(ERRORS.noInputFilePath);
+    }).toThrow(ERRORS.NO_INPUT_FILE_PATH);
   });
 });

@@ -34,39 +34,32 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
    * @returns Army object
    */
   public getArmy(): Army {
+    const filePath: string = this.inputGetter.getInput();
+    let input: string;
+
     try {
-      const filePath: string = this.inputGetter.getInput();
-      let input: string;
-
-      try {
-        input = fs.readFileSync(filePath).toString('utf8');
-      } catch (error) {
-        console.error(error);
-        throw new Error(ERRORS.INVALID_INPUT_FILE_PATH);
-      }
-
-      const enemyForceMap: Map<
-        string,
-        number
-      > = this.stringInputParser.parseString(input, [
-        ATTACK_INPUT_STRING_START_TOKEN,
-        FORCE_CODES.H,
-        FORCE_CODES.E,
-        FORCE_CODES.AT,
-        FORCE_CODES.SG,
-      ]);
-
-      const army: Army = {
-        forces: this.getForceMap(enemyForceMap),
-        name: this.getPlanetName(),
-      };
-
-      return army;
+      input = fs.readFileSync(filePath).toString('utf8');
     } catch (error) {
-      // tslint:disable-next-line: no-console
-      console.error(error);
-      throw error;
+      throw new Error(ERRORS.INVALID_INPUT_FILE_PATH);
     }
+
+    const enemyForceMap: Map<
+      string,
+      number
+    > = this.stringInputParser.parseString(input, [
+      ATTACK_INPUT_STRING_START_TOKEN,
+      FORCE_CODES.H,
+      FORCE_CODES.E,
+      FORCE_CODES.AT,
+      FORCE_CODES.SG,
+    ]);
+
+    const army: Army = {
+      forces: this.getForceMap(enemyForceMap),
+      name: this.getPlanetName(),
+    };
+
+    return army;
   }
 
   private getForceMap(

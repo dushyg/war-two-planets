@@ -6,6 +6,6 @@ export class ArgsInputGetter implements InputGetter {
     if (process.argv.length > 2) {
       return process.argv[2];
     }
-    throw new Error(ERRORS.noInputFilePath);
+    throw new Error(ERRORS.NO_INPUT_FILE_PATH);
   }
 }
