@@ -16,5 +16,5 @@
     "experimentalDecorators": true
   },
   "exclude": ["node_modules", "build", "**/*.spec.ts"],
-  "include": ["src"]
+  "include": ["src/**/*.ts"]
 }

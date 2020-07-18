@@ -13,7 +13,9 @@
     "postinstall": "npm run build",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch",
-    "debug": "node.exe --nolazy -r ts-node/register --inspect-brk=9299 -- src/geektrust.ts"
+    "debug": "node.exe --nolazy -r ts-node/register --inspect-brk=9299 -- src/geektrust.ts",
+    "serve:doc": "npm run build:doc -- -s",
+    "build:doc": "npx compodoc -p tsconfig.json --theme Readthedocs --disableCoverage -d build/documentation/compodoc"
   },
   "keywords": [],
   "author": "dushyg",
@@ -23,6 +25,7 @@
     "typedi": "^0.8.0"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.11",
     "@types/jest": "^26.0.0",
     "@types/node": "^12.12.45",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
