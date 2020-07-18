@@ -14,6 +14,6 @@ describe('ArgsInputGetter', () => {
 
   it('should throw an error when no argument is passed', () => {
     const inputGetter = new ArgsInputGetter();
-    expect(inputGetter.getInput).toThrowError(ERRORS.noInputFilePath);
+    expect(inputGetter.getInput).toThrowError(ERRORS.NO_INPUT_FILE_PATH);
   });
 });

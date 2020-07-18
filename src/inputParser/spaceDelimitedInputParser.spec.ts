@@ -51,7 +51,7 @@ describe('SpaceDelimitedInputParser', () => {
   it('should throw an error when no or empty input is passed', () => {
     expect(() => {
       new SpaceDelimitedInputParser().parseString('', tokensToParse);
-    }).toThrowError(ERRORS.noOrEmptyInputString);
+    }).toThrowError(ERRORS.NO_OR_EMPTY_INPUT_STRING);
   });
 
   it('should throw an error when input has leading spaces', () => {
@@ -60,7 +60,7 @@ describe('SpaceDelimitedInputParser', () => {
         `   ${ATTACK_INPUT_STRING_START_TOKEN} 250H 50E 3AT 15SG`,
         tokensToParse,
       );
-    }).toThrowError(ERRORS.invalidInputString);
+    }).toThrowError(ERRORS.INVALID_INPUT_STRING);
   });
 
   it('should throw an error when input has trailing spaces', () => {
@@ -69,7 +69,7 @@ describe('SpaceDelimitedInputParser', () => {
         `${ATTACK_INPUT_STRING_START_TOKEN} 250H 50E 3AT 15SG  `,
         tokensToParse,
       );
-    }).toThrowError(ERRORS.invalidInputString);
+    }).toThrowError(ERRORS.INVALID_INPUT_STRING);
   });
   it('should throw an error when input doesnt start with ATTACK_INPUT_STRING_START_TOKEN', () => {
     expect(() => {
@@ -77,7 +77,7 @@ describe('SpaceDelimitedInputParser', () => {
         '250H 50E 3AT 15SG',
         tokensToParse,
       );
-    }).toThrowError(ERRORS.invalidInputString);
+    }).toThrowError(ERRORS.INVALID_INPUT_STRING);
   });
 
   it('should throw an error when input doesnt have H, E, AT, SG in order', () => {
@@ -86,7 +86,7 @@ describe('SpaceDelimitedInputParser', () => {
         `${ATTACK_INPUT_STRING_START_TOKEN} 50E 250H 3AT 15SG`,
         tokensToParse,
       );
-    }).toThrowError(ERRORS.invalidInputString);
+    }).toThrowError(ERRORS.INVALID_INPUT_STRING);
   });
 
   it('should be able to parse input even with more than 4 combatants', () => {
