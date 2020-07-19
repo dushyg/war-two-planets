@@ -57,5 +57,5 @@ But by coding to interfaces and using dependency injection with the help of libr
 
 The App is flexible to accept any number of unique combatant codes when a concrete implementation of ArmyProvider is added which returns the unit count of forces in home army that can tackle these additional invading forces.
 
-The App uses Rule Pipeline Design to allow adding removing rules possible.
+The App uses Rule Pipeline Design, decorating rules one after another, to provide flexibility of adding and removing rules possible when requirements change.
 The Rules also make use of template method pattern to ensure that concrete rules adhere to the logic structure we want.
