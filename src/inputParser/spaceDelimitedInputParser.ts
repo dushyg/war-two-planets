@@ -4,10 +4,11 @@ import { ERRORS } from '../constants';
 export class SpaceDelimitedInputParser implements StringInputParser {
   /**
    * Parses a string into a map listing enemy attack forces.
+   * Throws an error if input string doesnt match expected pattern.
+   * Returns an empty map if input doesnt match expected input.
    * @param input String describing enemy forces like FALICORNIA_ATTACK 250H 50E 20AT 15SG
    * @param tokensToParse An array of tokens to parse like ['FALICORNIA_ATTACK','H', 'E', 'AT', 'SG']
    * @returns A map of enemy combatant code name to their count.
-   * Returns an empty map if input doesnt match expected input.
    */
   public parseString(
     input: string,
@@ -23,9 +24,10 @@ export class SpaceDelimitedInputParser implements StringInputParser {
   /**
    * Validates the attackString to search for all the tokens passed in that order.
    * Returns true if attackString is an exact match else false.
-   * Throws error if input passed is falsy
+   * Throws error if input passed is empty
    * @param attackString Input string to parse like FALICORNIA_ATTACK 250H 50E 3AT 15SG
    * @param tokensToParse An array of tokens to parse like ['FALICORNIA_ATTACK','H', 'E', 'AT', 'SG']
+   * @returns true, if input was valid else false
    */
   private validateInput(
     attackString: string,

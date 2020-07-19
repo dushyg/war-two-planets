@@ -24,7 +24,8 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
     this.stringInputParser = Container.get(StringInputParserService);
   }
   /**
-   * Creates and returns an army object by reading and parsing process.argv
+   * Creates and returns an army object by reading and parsing the file whose path is passed in process.argv
+   * Throws an error if file path passed to process.argv is invalid
    * @returns Army object
    */
   public getArmy(): Army {
