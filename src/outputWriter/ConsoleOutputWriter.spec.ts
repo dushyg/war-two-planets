@@ -10,6 +10,11 @@ describe('ConsoleOutputWriter', () => {
       WarResultFormatterService,
       new SpaceDelimitedStringFormatter(),
     );
+    // redefining concole.log to not spam the console with logs during test
+    const cLog = console.log;
+    console.log = () => {
+      return undefined;
+    };
     const consoleSpy = jest.spyOn(console, 'log');
     const outputWriter = new ConsoleOutputWriter();
     outputWriter.write({
@@ -22,5 +27,7 @@ describe('ConsoleOutputWriter', () => {
       ]),
     } as WarResult);
     expect(consoleSpy).toHaveBeenCalledWith('WINS 10H 20E 5AT 3SG');
+    // restoring console.log
+    console.log = cLog;
   });
 });
