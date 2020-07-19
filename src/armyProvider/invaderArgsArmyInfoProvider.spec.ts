@@ -1,6 +1,7 @@
 // import 'reflect-metadata';
 import { InvaderArgsArmyProvider } from './invaderArgsArmyProvider';
 import { ArgsInputGetter } from '../inputGetter/argsInputGetter';
+import path from 'path';
 import { SpaceDelimitedInputParser } from '../inputParser/spaceDelimitedInputParser';
 import { PLANET_NAMES, FORCE_CODES } from '../constants';
 import Container from 'typedi';
@@ -11,7 +12,11 @@ describe('InvaderArgsArmyInfoProvider', () => {
     Container.set(InputGetterService, new ArgsInputGetter());
     Container.set(StringInputParserService, new SpaceDelimitedInputParser());
     const provider = new InvaderArgsArmyProvider();
-    process.argv = ['node', 'jest', 'src\\testInputs\\warInput.txt'];
+    process.argv = [
+      'node',
+      'jest',
+      path.join('src', 'testInputs', 'warInput.txt'),
+    ];
 
     const army = provider.getArmy();
 
