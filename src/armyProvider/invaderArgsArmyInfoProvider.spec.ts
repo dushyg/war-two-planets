@@ -1,4 +1,3 @@
-// import 'reflect-metadata';
 import { InvaderArgsArmyProvider } from './invaderArgsArmyProvider';
 import { ArgsInputGetter } from '../inputGetter/argsInputGetter';
 import path from 'path';

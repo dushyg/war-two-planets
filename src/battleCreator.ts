@@ -3,11 +3,9 @@ import { Army, Battle, Combatant } from './models';
 import { Container } from 'typedi';
 import { CombatantMatcherService } from './typediConfig';
 
-// @Service()
 export class BattleCreator {
   private combatantMatcher: CombatantMatcher;
   constructor() {
-    // private combatantMatcher: CombatantMatcher // @Inject((type) => CombatantMatcherService)
     this.combatantMatcher = Container.get(CombatantMatcherService);
   }
   public createBattles(invadingArmy: Army, defendingArmy: Army): Battle[] {

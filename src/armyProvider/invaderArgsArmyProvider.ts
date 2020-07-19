@@ -12,11 +12,9 @@ import {
 import { Container } from 'typedi';
 import { StringInputParserService, InputGetterService } from '../typediConfig';
 
-// export const InvaderArgsArmyProviderService = new Token<ArmyProvider>();
 /**
  * Allows to create an army object by reading and parsing process.argv
  */
-// @Service(InvaderArgsArmyProviderService)
 export class InvaderArgsArmyProvider implements ArmyProvider {
   private inputGetter: InputGetter;
   private stringInputParser: StringInputParser;
@@ -25,10 +23,6 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
     this.inputGetter = Container.get(InputGetterService);
     this.stringInputParser = Container.get(StringInputParserService);
   }
-  // constructor(
-  //   private inputGetter: InputGetter,
-  //   private stringInputParser: StringInputParser
-  // ) {}
   /**
    * Creates and returns an army object by reading and parsing process.argv
    * @returns Army object

@@ -13,8 +13,6 @@ export class SpaceDelimitedInputParser implements StringInputParser {
     input: string,
     tokensToParse: string[],
   ): Map<string, number> {
-    // const attackString = input ? input.trim() : input;
-
     if (!this.validateInput(input, tokensToParse)) {
       throw new Error(ERRORS.INVALID_INPUT_STRING);
     }
