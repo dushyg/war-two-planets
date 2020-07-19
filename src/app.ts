@@ -9,9 +9,21 @@ import {
 import { War } from './war';
 import { OutputWriter } from './outputWriter/outputWriter';
 
+/**
+ * Application instance that encapsulates a war between Lengaburu and Falicornia
+ */
 export class App {
+  /**
+   * An object that provides the army for forces of Lengaburu
+   */
   private defenderArmyProvider: ArmyProvider;
+  /**
+   * An object that provides the army for forces of Falicornia
+   */
   private invaderArmyProvider: ArmyProvider;
+  /**
+   * An object that is used to write the output of the war
+   */
   private outputWriter: OutputWriter;
   constructor() {
     this.defenderArmyProvider = Container.get(
@@ -20,6 +32,9 @@ export class App {
     this.invaderArmyProvider = Container.get(InvaderArgsArmyProviderService);
     this.outputWriter = Container.get(OutputWriterService);
   }
+  /**
+   * Kicks off the war
+   */
   public start(): void {
     try {
       const war = new War();

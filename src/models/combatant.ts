@@ -1,3 +1,6 @@
+/**
+ * Interface representing the shape of a combatant object
+ */
 export interface Combatant {
   /**
    * Count of combatants in this category
@@ -8,7 +11,7 @@ export interface Combatant {
    */
   tacklingPower: number;
   /**
-   * Deployment Position from left to right amoungst other type of combatants within its own army
+   * Deployment Position from left to right amongst other type of combatants within its own army
    */
   deploymentPosition: number;
 

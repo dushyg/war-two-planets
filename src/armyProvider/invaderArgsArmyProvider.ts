@@ -56,7 +56,11 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
 
     return army;
   }
-
+  /**
+   *
+   * @param enemyForceMap Map of combatant code vs count of those combatants
+   * @returns Map of combatant code vs Combatan object
+   */
   private getForceMap(
     enemyForceMap: Map<string, number>,
   ): Map<string, Combatant> {
@@ -75,6 +79,9 @@ export class InvaderArgsArmyProvider implements ArmyProvider {
     );
   }
 
+  /**
+   * @returns Defender planet name
+   */
   private getPlanetName(): string {
     return PLANET_NAMES.FALICORNIA;
   }

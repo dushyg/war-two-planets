@@ -1,3 +1,6 @@
+/**
+ * Interface to be implemented to parse various enemy combatant code names and their count
+ */
 export interface StringInputParser {
   /**
    * Parses a string into a map listing enemy attack forces

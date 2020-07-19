@@ -1,6 +1,8 @@
 import { InputGetter } from './inputGetter';
 import { ERRORS } from '../constants';
-
+/**
+ * An implementation of InputGetter Interface that reads command line arguments passed to the application and returns the input file name
+ */
 export class ArgsInputGetter implements InputGetter {
   /**
    * Reads process.argv and returns the 3rd argument passed.

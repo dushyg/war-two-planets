@@ -1,6 +1,8 @@
 import { StringInputParser } from './stringInputParser';
 import { ERRORS } from '../constants';
-
+/**
+ * Implementation of StringInputParser interface that parses string delimited enemy combatant code names along with their count
+ */
 export class SpaceDelimitedInputParser implements StringInputParser {
   /**
    * Parses a string into a map listing enemy attack forces.
