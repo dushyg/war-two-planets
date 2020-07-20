@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run lint && npm run test && npm run clean && tsc",
     "clean": "rimraf ./build",
-    "start:dev": "nodemon",
+    "start:dev": "nodemon src/testInputs/warInput.txt",
     "start": "node build/geektrust.js",
     "lint": "eslint --ext .js \"src/**/*.{ts,tsx}\" --ignore-pattern '/build/*'",
     "lint:fix": "eslint --ext .js \"src/**/*.{ts,tsx}\" --ignore-pattern '/build/*' --quiet --fix",
