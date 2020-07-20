@@ -14,7 +14,7 @@ The app helps King Shan decide what forces to deploy to match Al Falcone's attac
 2. Open a terminal window and change into this directory 'war' i.e. cd war .
 3. Install nodejs and npm package manager if not already installed.
 4. Type 'npm install' in the terminal, this step will :
-   a. Install all application dependencies using npm package manager.
+   a. Install all application dependencies using npm package manager. Once installation is complete, using postinstall npm hook, it will perform below steps.
    b. Check application source code for linting errors using 'ESLint'.
    c. Run unit test cases for application using 'Jest' testing framework.
    d. The build step will fail if there are any linting errors or unit test case failures.
@@ -24,9 +24,10 @@ The app helps King Shan decide what forces to deploy to match Al Falcone's attac
 # Running the app
 
 1. Open a terminal window and change into the directory 'war' which has the source code with package.json file i.e. Type 'cd war' .
-2. Type 'npm start path_of_input_file' eg. 'npm start src/testInputs/warInput.txt' .
-   The input file should have enemy forces listed in this format: FALICORNIA_ATTACK 250H 50E 20AT 15SG
-   This will execute the application and it will read this file and output to the console, the recommended forces that should be deployed and outcome of the war in this format:
+2. Type 'npm install', ignore if you have already installed all dependencies using this command earlier.
+3. Type 'npm start path_of_input_file' eg. 'npm start src/testInputs/warInput.txt' .
+   The input file should have attacking forces listed in this format: FALICORNIA_ATTACK 250H 50E 20AT 15SG
+   This will execute the application and it will read this file and output to the console, the recommended forces that should be deployed and outcome of the war in this format: LOSES 100H 38E 10AT 5SG or WINS 29H 50E 3AT 1SG
 
 # Unit Testing
 
